@@ -1,0 +1,2165 @@
+﻿    /* =========================================================
+       全局重置与硬性布局规则
+       ========================================================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      overflow-x: hidden;
+      background: #e8e8e8;
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      perspective: 1400px;
+    }
+
+    /* 最外层 1920px 居中画布，所有内容嵌套其中 */
+    .wrap-1920 {
+      width: 1920px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background-color: #ffffff;
+      background-image: url('assets/images/screenshot_244_955.png');
+      background-size: 1920px auto;
+      background-position: center top;
+      background-repeat: no-repeat;
+      height: 8660px;
+    }
+
+    /* =========================================================
+       顶部固定导航栏
+       ========================================================= */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1920px;
+      height: 80px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      background: #FEFAF3;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      /* 父容器本身不使用 transform 做动画，仅用于居中；子元素动画基于 transform/opacity */
+      will-change: auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-logo img {
+      width: 333px;
+      height: 36px;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .nav-logo:hover {
+      transform: scale(1.03);
+    }
+
+    .nav-logo:active {
+      transform: scale(0.98);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .nav-btn {
+      display: block;
+      width: 150px;
+      height: 45px;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.25s ease;
+      will-change: transform;
+    }
+
+    .nav-btn img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* =========================================================
+       全屏区块基础样式
+       ========================================================= */
+    .screen-1080 {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      transform-origin: 50% 50%;
+    }
+
+    /* =========================================================
+       Screen-Home：首页背景 + 可点击数字图形 + 花瓣飘落
+       ========================================================= */
+    #home {
+      background: transparent;
+    }
+
+    /* 背景层：使用新背景图 */
+    .home-bg-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .home-bg-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 首页图形组合容器：整体水平居中，内部元素保持相对位置 */
+    .home-graphics-wrap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1056px;
+      height: 100%;
+      margin-left: -528px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .home-graphics-wrap > * {
+      pointer-events: auto;
+    }
+
+    /* 首页可点击元素通用样式 */
+    .home-clickable {
+      position: absolute;
+      cursor: pointer;
+      z-index: 5;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .home-clickable img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    .home-clickable:hover {
+      transform: scale(1.05);
+    }
+
+    .home-clickable.bouncing {
+      animation: graphicBounce 0.4s ease-out;
+    }
+
+    /* 草坪：可点击数字图形，点击触发花瓣 + 回弹 */
+    .digital-graphic {
+      position: absolute;
+      top: 587px;
+      left: 0;
+      width: 1056px;
+      height: 376px;
+      cursor: pointer;
+      z-index: 5;
+      will-change: transform;
+      transform-origin: 50% 50%;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .digital-graphic:hover {
+      transform: scale(1.03);
+    }
+
+    .digital-graphic:active {
+      transform: scale(0.97);
+    }
+
+    /* 点击数字图形的回弹动画：scale 1 -> 1.15 -> 1，0.4s ease-out */
+    .digital-graphic.bouncing {
+      animation: graphicBounce 0.4s ease-out;
+    }
+
+    @keyframes graphicBounce {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .digital-graphic img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 首页各导航图标定位（依据 Figma 244_955 帧导出坐标） */
+    .home-hello {
+      top: 206px;
+      left: 34px;
+      width: 494px;
+      height: 274px;
+    }
+
+    .home-home-icon {
+      top: 414px;
+      left: 503px;
+      width: 299px;
+      height: 200px;
+    }
+
+    .home-garden {
+      top: 480px;
+      left: 888px;
+      width: 113px;
+      height: 188px;
+    }
+
+    .home-catalog {
+      top: 202px;
+      left: 763px;
+      width: 168px;
+      height: 212px;
+    }
+
+    /* 飘落的花瓣容器 */
+    .petal-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      width: var(--petal-size, 22px);
+      height: var(--petal-size, 22px);
+      top: -40px;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+    }
+
+    /* 花瓣飘落关键帧：随机性由 JS 控制 size/duration/sway/rotate，仅 transform + opacity */
+    @keyframes petalFall {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(290px) translateX(var(--sway-a, 60px)) rotate(calc(var(--petal-rotate, 360deg) * 0.25));
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(580px) translateX(var(--sway-b, -60px)) rotate(calc(var(--petal-rotate, 360deg) * 0.5));
+        opacity: 1;
+      }
+      75% {
+        transform: translateY(870px) translateX(var(--sway-a, 60px)) rotate(calc(var(--petal-rotate, 360deg) * 0.75));
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(1160px) translateX(0) rotate(var(--petal-rotate, 360deg));
+        opacity: 0;
+      }
+    }
+
+    @keyframes slowRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-24px); }
+    }
+
+    /* 滚动提示 */
+    .scroll-hint {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #6b6b7b;
+      font-size: 14px;
+      animation: floatY 2.2s ease-in-out infinite;
+    }
+
+    .scroll-hint .mouse {
+      width: 24px;
+      height: 38px;
+      border: 2px solid #6b6b7b;
+      border-radius: 14px;
+      position: relative;
+    }
+
+    .scroll-hint .mouse::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 6px;
+      background: #6b6b7b;
+      border-radius: 2px;
+      animation: scrollDot 1.6s ease-in-out infinite;
+    }
+
+    @keyframes scrollDot {
+      0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* =========================================================
+       Screen-About：可拖拽纸条布局（仅本区块修改）
+       硬性约束：所有动画元素 transform-origin:50% 50% !important；
+       仅使用 transform / opacity；父容器不添加任何动画 transform。
+       ========================================================= */
+    .screen-about {
+      background: #FAFCF1;
+      user-select: none;
+    }
+
+    /* --- 1. 背景：1920×1080 铺满整个区块 --- */
+    .about-bg-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .about-bg-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    /* --- 2. 可拖拽纸条层 --- */
+    .about-notes-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+    }
+
+    .about-note {
+      position: absolute;
+      cursor: grab;
+      transform-origin: 50% 50% !important;
+      will-change: transform;
+      filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.12));
+      transition: filter 0.2s ease;
+    }
+
+    .about-note:active {
+      cursor: grabbing;
+      filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.18));
+    }
+
+    .about-note img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      transform-origin: 50% 50% !important;
+      will-change: transform;
+    }
+
+    /* 点击/拖拽开始时的回弹动画：scale 1 -> 1.15 -> 1，0.4s ease-out */
+    .about-note.bouncing img {
+      animation: noteBounce 0.4s ease-out;
+    }
+
+    @keyframes noteBounce {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* --- 3. hello 1：左右轻微抖动循环动画 --- */
+    .about-hello {
+      position: absolute;
+      left: 1490px;
+      top: 750px;
+      width: 278px;
+      height: 154px;
+      z-index: 5;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: helloShake 1.4s ease-in-out infinite;
+    }
+
+    .about-hello img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes helloShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* --- 4. 装饰元素：右下角纸飞机 --- */
+    .about-plane {
+      position: absolute;
+      right: 120px;
+      bottom: 110px;
+      width: 92px;
+      height: 92px;
+      z-index: 6;
+      pointer-events: none;
+      transform-origin: 50% 50% !important;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.08));
+    }
+
+    /* =========================================================
+       Screen-Project：目录 → 打开的目录本 → 详情页
+       ========================================================= */
+    #project {
+      background: #FEFAF3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Project 背景：统一使用纯色 #FEFAF3，隐藏装饰图以保留代码 */
+    .project-bg-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      display: none;
+    }
+
+    .project-bg-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .project-stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    /* 目录首帧 */
+    .project-catalog {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .project-catalog.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    .project-catalog > img {
+      width: 1920px;
+      height: 1080px;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* 提示文字：请尝试点击文件查看更多作品详情 */
+    .project-hint {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 22px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .project-hint img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 可点击目录选项（透明点击热区，背景图已包含视觉） */
+    .catalog-option {
+      position: relative;
+      width: 435px;
+      height: 581px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.5s ease, box-shadow 0.35s ease;
+      will-change: transform, opacity;
+      /* 初始状态：从底部 1200px 外滑入 */
+      opacity: 0;
+      transform: translateY(1200px) rotate(var(--option-rotate, 0deg));
+      z-index: 1;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.14));
+    }
+
+    /* 4 个目录选项的固定旋转角度 */
+    .catalog-option:nth-child(1) { --option-rotate: 9deg; }
+    .catalog-option:nth-child(2) { --option-rotate: -5deg; }
+    .catalog-option:nth-child(3) { --option-rotate: -9deg; }
+    .catalog-option:nth-child(4) { --option-rotate: 7deg; }
+
+    /* Project 进入视口：目录选项从底部向上滑入， stagger 延迟 */
+    #project.in-view .catalog-option {
+      animation: optionSlideUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    #project.in-view .catalog-option:nth-child(1) { animation-delay: 0.05s; }
+    #project.in-view .catalog-option:nth-child(2) { animation-delay: 0.15s; }
+    #project.in-view .catalog-option:nth-child(3) { animation-delay: 0.25s; }
+    #project.in-view .catalog-option:nth-child(4) { animation-delay: 0.35s; }
+
+    @keyframes optionSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(1200px) rotate(var(--option-rotate, 0deg));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg));
+      }
+    }
+
+    .catalog-option img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .catalog-option:hover {
+      /* 悬停时目录保持垂直，JS 在此基础上叠加镜头跟随 */
+      transform: translateY(0) rotate(0deg);
+      z-index: 10;
+      filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.22));
+    }
+
+    /* 悬停时内部图片回弹：scale 1 -> 1.15 -> 1，0.4s ease-out */
+    .catalog-option:hover img {
+      animation: catalogBounce 0.4s ease-out;
+    }
+
+    @keyframes catalogBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* 点击目录：书本左右翻页动效 */
+    .catalog-option.flipping-left {
+      animation: optionFlipLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      pointer-events: none;
+    }
+
+    .catalog-option.flipping-right {
+      animation: optionFlipRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes optionFlipLeft {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(0deg) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(-90deg) scale(0.92);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(-180deg) scale(0.85);
+      }
+    }
+
+    @keyframes optionFlipRight {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(0deg) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(90deg) scale(0.92);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(180deg) scale(0.85);
+      }
+    }
+
+    /* 打开的目录本 */
+    .project-open-book {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 710px;
+      height: 505px;
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform, opacity;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+    }
+
+    .project-open-book.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .project-open-book > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .project-open-book.active:hover {
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    /* 目录本内掉落图片 */
+    .open-book-images {
+      position: absolute;
+      inset: 0;
+      pointer-events: auto;
+    }
+
+    .open-book-img {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-100px) rotate(0deg);
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .open-book-img:active {
+      cursor: grabbing;
+    }
+
+    .open-book-img:nth-child(1) {
+      left: 0;
+      top: 0;
+      width: 710px;
+      height: 505px;
+      --img-rotate: -2deg;
+    }
+
+    .open-book-img:nth-child(2) {
+      left: 402px;
+      top: 27px;
+      width: 342px;
+      height: 450px;
+      --img-rotate: 3deg;
+    }
+
+    .project-open-book.active .open-book-img:nth-child(1) {
+      opacity: 1;
+      transform: translateY(0) rotate(var(--img-rotate));
+      transition-delay: 0.2s;
+    }
+
+    .project-open-book.active .open-book-img:nth-child(2) {
+      opacity: 1;
+      transform: translateY(0) rotate(var(--img-rotate));
+      transition-delay: 0.38s;
+    }
+
+    /* 作品集目录详情页全图：宽度 1920px，按图片自然高度撑满整页 */
+    .detail-content.detail-full {
+      padding: 0;
+      display: block;
+      height: auto;
+      min-height: calc(100vh - 80px);
+      overflow: visible;
+    }
+
+    .detail-content.detail-full img {
+      width: 1920px;
+      height: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       项目详情子页面（单文件内模拟独立页面）
+       ========================================================= */
+    .project-detail {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      width: 1920px;
+      height: 100vh;
+      margin-left: -960px;
+      z-index: 900;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(40px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform, opacity;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .project-detail.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* 详情页翻页弹出：从 scale 0.85 + rotateY 翻转至正常 */
+    .project-detail.flip-pop {
+      animation: detailFlipPop 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes detailFlipPop {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.82) rotateY(-18deg);
+      }
+      55% {
+        opacity: 1;
+        transform: translateY(0) scale(1.02) rotateY(6deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateY(0deg);
+      }
+    }
+
+    .detail-nav {
+      position: sticky;
+      top: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .detail-back {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      color: #4a4a5a;
+      cursor: pointer;
+      transition: color 0.2s ease, transform 0.2s ease;
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .detail-back:hover {
+      color: #5b6cff;
+      transform: translateX(-6px);
+    }
+
+    .detail-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .detail-content {
+      height: 1000px;
+      display: flex;
+      padding: 80px 120px;
+      gap: 80px;
+    }
+
+    .detail-visual {
+      width: 720px;
+      height: 720px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #e0e7ff, #f3e8ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-visual svg {
+      width: 300px;
+      height: 300px;
+      opacity: 0.8;
+    }
+
+    .detail-text {
+      flex: 1;
+      padding-top: 40px;
+    }
+
+    .detail-text h3 {
+      font-size: 52px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 32px;
+    }
+
+    .detail-text p {
+      font-size: 20px;
+      color: #5a5a6e;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .detail-tag {
+      padding: 10px 22px;
+      background: #f1f5f9;
+      border-radius: 30px;
+      font-size: 15px;
+      color: #475569;
+    }
+
+    /* =========================================================
+       Screen-PortfolioOpen：打开的目录
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #portfolioOpen {
+      background: #FEFAF3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #portfolioOpen .portfolio-open-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      display: none;
+    }
+
+    #portfolioOpen .portfolio-open-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 作品集标题：手写涂鸦出现 */
+    #portfolioOpen .portfolio-open-title {
+      position: absolute;
+      left: 533px;
+      top: 0;
+      width: 855px;
+      height: 103px;
+      z-index: 2;
+      opacity: 0;
+      transform: scale(0.85);
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+    }
+
+    #portfolioOpen .portfolio-open-title img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 首页图标：左右轻微抖动循环 */
+    #portfolioOpen .portfolio-open-home {
+      position: absolute;
+      left: 1122px;
+      top: 819px;
+      width: 299px;
+      height: 200px;
+      z-index: 2;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: portfolioHomeShake 1.4s ease-in-out infinite;
+    }
+
+    #portfolioOpen .portfolio-open-home img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes portfolioHomeShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* 文件夹组合：居中于画面 */
+    #portfolioOpen .folder-composition {
+      position: absolute;
+      left: 451px;
+      top: 62.5px;
+      width: 1018px;
+      height: 955px;
+      z-index: 1;
+    }
+
+    #portfolioOpen .folder-base {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1018px;
+      height: 955px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #portfolioOpen .folder-base img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #portfolioOpen .folder-item {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-220px);
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      z-index: 1;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    #portfolioOpen .folder-item:active {
+      cursor: grabbing;
+    }
+
+    #portfolioOpen .folder-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #portfolioOpen .folder-book {
+      left: 167px;
+      top: 225px;
+      width: 710px;
+      height: 505px;
+    }
+
+    #portfolioOpen .folder-sticky {
+      left: 0;
+      top: 248px;
+      width: 482px;
+      height: 482px;
+    }
+
+    #portfolioOpen .folder-grid {
+      left: 676px;
+      top: 140px;
+      width: 342px;
+      height: 450px;
+    }
+
+    /* 进入视口后触发掉落与涂鸦动画（仅触发一次） */
+    #portfolioOpen.in-view .folder-book {
+      animation: folderDrop 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    #portfolioOpen.in-view .folder-sticky {
+      animation: folderDrop 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 0.14s forwards;
+    }
+
+    #portfolioOpen.in-view .folder-grid {
+      animation: folderDrop 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 0.28s forwards;
+    }
+
+    #portfolioOpen.in-view .portfolio-open-title {
+      animation: doodleAppear 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s forwards;
+    }
+
+    @keyframes folderDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-220px) rotate(var(--folder-rotate, 0deg));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--folder-rotate, 0deg));
+      }
+    }
+
+    @keyframes doodleAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* 打字机文字：居中显示 */
+    #portfolioOpen .portfolio-typewriter {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      width: 1100px;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    #portfolioOpen .typewriter-text {
+      font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.9;
+      color: #3a3a3a;
+      white-space: pre-line;
+      letter-spacing: 0.04em;
+    }
+
+    #portfolioOpen .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: #3a3a3a;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: cursorBlink 0.85s step-end infinite;
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* =========================================================
+       Screen-Garden：灵感库（参考 screenshot_195_194）
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #garden {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      width: 1920px;
+      height: 2100px;
+    }
+
+    /* 背景层：使用 screenshot_257_518.png 铺满 */
+    .garden-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .garden-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 花园图标：底部盆栽，左右轻微抖动循环 */
+    .garden-plant {
+      position: absolute;
+      left: 903px;
+      top: 1882px;
+      width: 113px;
+      height: 188px;
+      z-index: 6;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: gardenShake 1.4s ease-in-out infinite;
+    }
+
+    .garden-plant img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes gardenShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* --- 1. 左右分栏主容器 --- */
+    .garden-main {
+      position: absolute;
+      top: 300px;
+      left: 0;
+      width: 1920px;
+      height: 1562px;
+      display: flex;
+      padding: 0;
+      z-index: 5;
+    }
+
+    /* --- 2. 左侧时间轴区域（746px） --- */
+    .garden-timeline {
+      width: 746px;
+      height: 1575px;
+      position: relative;
+      margin-top: -13px;
+      overflow: hidden;
+    }
+
+    .garden-timeline-board {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 761px;
+      height: 1575px;
+      will-change: transform, opacity;
+      transform-origin: 50% 50% !important;
+    }
+
+    .garden-timeline-board > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* 马赛克遮罩层 */
+    .garden-timeline-mosaic {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(16, 1fr);
+      pointer-events: none;
+    }
+
+    .mosaic-tile {
+      background: #e8f5d6;
+      opacity: 1;
+      will-change: opacity;
+      transform-origin: 50% 50%;
+    }
+
+    #garden.in-view .mosaic-tile {
+      animation: mosaicReveal 0.45s ease-out forwards;
+      animation-delay: calc(var(--row, 0) * 0.08s);
+    }
+
+    @keyframes mosaicReveal {
+      to { opacity: 0; }
+    }
+
+    /* --- 3. 右侧瀑布流区域（1164px） --- */
+    .garden-waterfall {
+      width: 1164px;
+      height: 1596px;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      margin-top: 4px;
+      margin-left: 10px;
+    }
+
+    .garden-waterfall-col {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 32px;
+    }
+
+    .garden-waterfall-col:nth-child(1) { margin-top: -303px; }
+    .garden-waterfall-col:nth-child(2) { margin-top: 1px; margin-left: 12px; }
+    .garden-waterfall-col:nth-child(3) { margin-top: -303px; margin-left: 12px; }
+
+    .note-card {
+      width: 380px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #ffffff;
+      padding: 18px;
+      row-gap: 16px;
+      opacity: 0;
+      transform: translateY(50px);
+      will-change: transform, opacity;
+      transform-origin: 50% 50% !important;
+      animation-fill-mode: both;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      box-shadow: 0px 10px 7px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .note-card:hover {
+      transform: translateY(-4px);
+      opacity: 0.95;
+    }
+
+    .note-card .note-thumb {
+      width: 344px;
+      height: 459px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .note-card .note-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .note-card .note-text {
+      width: 344px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #000000;
+      text-align: center;
+    }
+
+    .note-card .note-meta {
+      width: 105px;
+      align-self: center;
+      font-size: 15px;
+      line-height: 19px;
+      color: #000000;
+      text-align: center;
+      letter-spacing: 0;
+    }
+
+    #garden.in-view .note-card {
+      animation: cardFadeIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 瀑布流自动循环滚动：仅 transform，避免 reflow */
+    .garden-waterfall-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 32px;
+      will-change: transform;
+      transform-origin: 50% 50% !important;
+      animation: waterfallScroll var(--scroll-duration, 20s) linear infinite;
+    }
+
+    .garden-waterfall-col:hover .garden-waterfall-scroll,
+    .garden-waterfall-scroll.paused {
+      animation-play-state: paused;
+    }
+
+    @keyframes waterfallScroll {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
+    }
+
+    /* 循环轨道内的卡片不再执行入场动画，保持可见 */
+    #garden.in-view .garden-waterfall-scroll .note-card {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* --- 4. 右下角添加按钮 --- */
+    .garden-add-btn {
+      position: fixed;
+      right: 60px;
+      bottom: 60px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transform-origin: 100% 50%;
+      will-change: transform, opacity;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .garden-add-btn.hidden {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .garden-add-btn .btn-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #008A04;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 24px rgba(0, 138, 4, 0.35);
+      transition: transform 0.3s ease;
+      transform-origin: 50% 50%;
+      flex-shrink: 0;
+    }
+
+    .garden-add-btn:hover .btn-icon {
+      transform: scale(1.08);
+    }
+
+    .garden-add-btn .btn-label {
+      font-size: 16px;
+      color: #008A04;
+      font-weight: 600;
+      opacity: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform-origin: 100% 50%;
+      white-space: nowrap;
+    }
+
+    .garden-add-btn.collapsed .btn-label {
+      opacity: 0;
+      transform: translateX(20px);
+      pointer-events: none;
+    }
+
+    /* 按钮收起/展开切换小箭头 */
+    .garden-add-btn .btn-toggle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 138, 4, 0.12);
+      color: #008A04;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: 50% 50%;
+      flex-shrink: 0;
+    }
+
+    .garden-add-btn.collapsed .btn-toggle {
+      transform: rotate(180deg);
+    }
+
+    /* 当 body 等祖先带 perspective 导致 fixed 定位相对于 body 时，
+       通过 JS 实时更新 --garden-scroll-y 让按钮保持在视口右下角 */
+    .garden-add-btn.perspective-fix {
+      top: calc(var(--garden-scroll-y, 0px) + 100vh - 60px - var(--garden-btn-height, 56px));
+      bottom: auto;
+    }
+
+    /* --- 5. 添加弹窗（主组件 screenshot_300_471.png） --- */
+    .garden-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .garden-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* 弹窗打开时隐藏添加按钮，避免在 perspective 容器下出现层级异常 */
+    .garden-add-btn.modal-open {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .garden-modal-overlay.perspective-fix {
+      top: var(--garden-scroll-y, 0px);
+      left: 0;
+      right: auto;
+      bottom: auto;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .garden-modal {
+      position: relative;
+      width: 395px;
+      height: 594px;
+      background: url('assets/images/screenshot_300_471.png') no-repeat center / 100% 100%;
+      transform: scale(0.92);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+      transform-origin: 50% 50%;
+    }
+
+    .garden-modal-overlay.active .garden-modal {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .garden-modal-preview {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 375px;
+      height: 455px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .garden-modal-preview img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .garden-modal-preview .preview-placeholder {
+      display: none;
+    }
+
+    .garden-modal-preview input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .garden-modal-body {
+      position: absolute;
+      top: 470px;
+      left: 20px;
+      width: 355px;
+      height: 86px;
+      background: #ffffff;
+    }
+
+    .garden-modal-body .modal-text {
+      width: 100%;
+      height: 54px;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #000000;
+      text-align: center;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      resize: none;
+      background: transparent;
+    }
+
+    .garden-modal-body .modal-text::placeholder {
+      color: #a2a2a2;
+    }
+
+    .garden-modal-body .modal-date {
+      display: block;
+      width: 130px;
+      height: 24px;
+      margin: 2px auto 0;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      line-height: 24px;
+      color: #000000;
+      text-align: center;
+      font-family: FZLanTingHeiS-R-GB, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background: transparent;
+    }
+
+    .garden-modal-body .modal-date::placeholder {
+      color: #999999;
+    }
+
+    .garden-modal .btn-submit {
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      transform: translateX(-50%);
+      padding: 6px 36px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #008A04;
+      color: #ffffff;
+      font-family: inherit;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      transform-origin: 50% 50%;
+      box-shadow: 0 4px 14px rgba(0, 138, 4, 0.35);
+    }
+
+    .garden-modal .btn-submit:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* =========================================================
+       Screen-Contact：三纸条轮播（参考 screenshot_212_229）
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #contact {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      height: 1080px;
+    }
+
+    .contact-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .contact-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .contact-carousel {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transform-origin: 50% 50%;
+      cursor: pointer;
+      will-change: transform, opacity;
+      user-select: none;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.4s ease;
+    }
+
+    .contact-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* 三个纸条按参考图分别设定尺寸 */
+    .contact-info-card {
+      width: 500px;
+      height: 860px;
+    }
+
+    /* 联系方式卡片上的简历链接热区 */
+    .contact-resume-link {
+      position: absolute;
+      left: 120px;
+      top: 405px;
+      width: 160px;
+      height: 55px;
+      display: none;
+      cursor: pointer;
+      z-index: 20;
+      border-radius: 8px;
+      transition: background 0.25s ease;
+    }
+
+    .contact-info-card.active .contact-resume-link {
+      display: block;
+    }
+
+    .contact-resume-link:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-message-card {
+      width: 800px;
+      height: 560px;
+    }
+
+    .contact-note-card {
+      width: 600px;
+      height: 720px;
+    }
+
+    /* 便利贴可编辑文字，覆盖原图文字 */
+    .contact-note-text {
+      position: absolute;
+      top: 340px;
+      left: 190px;
+      width: 220px;
+      height: 40px;
+      font-family: "Encode Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 21px;
+      letter-spacing: 0;
+      color: #000000;
+      text-align: center;
+      line-height: 40px;
+      white-space: nowrap;
+      overflow: hidden;
+      outline: none;
+      user-select: text;
+      cursor: text;
+      z-index: 5;
+      background: #3d8cce;
+      border-radius: 2px;
+      transform-origin: 50% 50%;
+    }
+
+    .contact-note-text:empty::before {
+      content: attr(data-placeholder);
+      color: #000000;
+      pointer-events: none;
+    }
+
+    .contact-note-text:focus {
+      background: #3d8cce;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }
+
+    .contact-card.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .contact-card.left {
+      transform: translate(-50%, -50%) translateX(-420px) scale(0.78) rotate(-5deg);
+      opacity: 0.65;
+      z-index: 5;
+    }
+
+    .contact-card.right {
+      transform: translate(-50%, -50%) translateX(420px) scale(0.78) rotate(5deg);
+      opacity: 0.65;
+      z-index: 5;
+    }
+
+    .contact-card:hover {
+      opacity: 1;
+    }
+
+    .contact-card.active:hover {
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    /* 目录 1：右上角装饰图标，左右轻微抖动循环 */
+    .contact-catalog {
+      position: absolute;
+      top: 120px;
+      right: 130px;
+      width: 168px;
+      height: 212px;
+      z-index: 20;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: contactCatalogShake 1.4s ease-in-out infinite;
+    }
+
+    .contact-catalog img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes contactCatalogShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* --- 轮播指示器 --- */
+    .contact-dots {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      z-index: 20;
+    }
+
+    .contact-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease;
+      transform-origin: 50% 50%;
+    }
+
+    .contact-dot.active {
+      background: #000000;
+      transform: scale(1.3);
+    }
+
+    /* --- 联系页三张纸条（静态布局，参考 screenshot_212_229） --- */
+    .contact-note-item {
+      position: absolute;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  filter 0.25s ease;
+      filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.12));
+    }
+
+    .contact-note-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .contact-note-item:hover {
+      transform: scale(1.04);
+      filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.18));
+      z-index: 30;
+    }
+
+    .contact-note-item.bouncing {
+      animation: contactNoteBounce 0.4s ease-out;
+    }
+
+    @keyframes contactNoteBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .contact-note-blue {
+      left: 70px;
+      top: 420px;
+      width: 420px;
+      z-index: 12;
+    }
+
+    .contact-note-message {
+      left: 50%;
+      top: 460px;
+      width: 1080px;
+      transform: translateX(-50%);
+      z-index: 14;
+    }
+
+    .contact-note-message:hover {
+      transform: translateX(-50%) scale(1.04);
+    }
+
+    .contact-note-message.bouncing {
+      animation: contactMessageBounce 0.4s ease-out;
+    }
+
+    @keyframes contactMessageBounce {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.15); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    .contact-note-info {
+      right: 70px;
+      top: 320px;
+      width: 400px;
+      z-index: 13;
+    }
+
+    /* =========================================================
+       Screen-Ending：结尾页（罐子 + 星光）
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #ending {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    .ending-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ending-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 罐子：居中显示，保持原图比例 */
+    .ending-jar {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ending-jar img {
+      width: 760px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* 蝴蝶结：顶部装饰带 */
+    .ending-bow {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1920px;
+      height: auto;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ending-bow img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 星光：自然飘落，倒三角区域分布，尺寸 1~30px 随机 */
+    .ending-stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ending-star {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: var(--size);
+      height: var(--size);
+      margin-left: calc(var(--size) * -0.5);
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      opacity: 0;
+      animation: starFall var(--duration) linear var(--delay) infinite;
+    }
+
+    .ending-star img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    @keyframes starFall {
+      0% {
+        transform: translate(var(--start-x), var(--start-y)) rotate(0deg);
+        opacity: 0;
+      }
+      6% {
+        opacity: 1;
+      }
+      94% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--end-x), 1120px) rotate(var(--rotate));
+        opacity: 0;
+      }
+    }
+
+    /* =========================================================
+       网域：底部 1920×80 横条
+       ========================================================= */
+    #domain {
+      width: 1920px;
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    #domain img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 留言按钮：固定在结尾区块右下角 */
+    .message-btn-wrap {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      width: 211px;
+      height: 78px;
+      z-index: 998;
+      transform-origin: 50% 50%;
+      animation: floatMessage 3.2s ease-in-out infinite;
+    }
+
+    .message-btn {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .message-btn img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .message-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .message-btn:active {
+      transform: scale(0.96);
+    }
+
+    @keyframes floatMessage {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* =========================================================
+       留言弹窗
+       ========================================================= */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      will-change: opacity, transform;
+      transform: translateY(var(--popup-scroll-y, 0px));
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-modal {
+      position: relative;
+      width: 393px;
+      height: 651px;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      transform: scale(0.88);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.35s ease;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+    }
+
+    .popup-overlay.active .popup-modal {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .popup-send-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .popup-header h3 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+    }
+
+    .popup-close {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: #f1f5f9;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+      color: #64748b;
+      transition: background 0.2s ease, transform 0.2s ease;
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .popup-close:hover {
+      background: #e2e8f0;
+      transform: rotate(90deg);
+    }
+
+    .popup-form label {
+      display: block;
+      font-size: 15px;
+      color: #475569;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .popup-form input,
+    .popup-form textarea {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 16px;
+      color: #1e293b;
+      margin-bottom: 22px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+
+    .popup-form input:focus,
+    .popup-form textarea:focus {
+      border-color: #5b6cff;
+      box-shadow: 0 0 0 3px rgba(91, 108, 255, 0.12);
+    }
+
+    .popup-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .popup-submit {
+      width: 100%;
+      padding: 16px;
+      background: #5b6cff;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .popup-submit:hover {
+      background: #4f5ee6;
+    }
+
+    .popup-submit:active {
+      transform: scale(0.98);
+    }

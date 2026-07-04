@@ -1,0 +1,3683 @@
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <!-- 固定视口宽度，禁止移动端自适应缩放 -->
+  <meta name="viewport" content="width=1920" />
+  <title>个人作品集 | Portfolio</title>
+  <link rel="stylesheet" href="css/main.css"><!--
+    /* =========================================================
+       全局重置与硬性布局规则
+       ========================================================= */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      overflow-x: hidden;
+      background: #e8e8e8;
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      perspective: 1400px;
+    }
+
+    /* 最外层 1920px 居中画布，所有内容嵌套其中 */
+    .wrap-1920 {
+      width: 1920px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+      background-color: #ffffff;
+      background-image: url('assets/images/screenshot_244_955.png');
+      background-size: 1920px auto;
+      background-position: center top;
+      background-repeat: no-repeat;
+      height: 8660px;
+    }
+
+    /* =========================================================
+       顶部固定导航栏
+       ========================================================= */
+    .nav-bar {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1920px;
+      height: 80px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      background: #FEFAF3;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      /* 父容器本身不使用 transform 做动画，仅用于居中；子元素动画基于 transform/opacity */
+      will-change: auto;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.25s ease;
+    }
+
+    .nav-logo img {
+      width: 333px;
+      height: 36px;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .nav-logo:hover {
+      transform: scale(1.03);
+    }
+
+    .nav-logo:active {
+      transform: scale(0.98);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .nav-btn {
+      display: block;
+      width: 150px;
+      height: 45px;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.25s ease;
+      will-change: transform;
+    }
+
+    .nav-btn img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .nav-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .nav-btn:active {
+      transform: scale(0.96);
+    }
+
+    /* =========================================================
+       全屏区块基础样式
+       ========================================================= */
+    .screen-1080 {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      overflow: hidden;
+      transform-origin: 50% 50%;
+    }
+
+    /* =========================================================
+       Screen-Home：首页背景 + 可点击数字图形 + 花瓣飘落
+       ========================================================= */
+    #home {
+      background: transparent;
+    }
+
+    /* 背景层：使用新背景图 */
+    .home-bg-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .home-bg-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 首页图形组合容器：整体水平居中，内部元素保持相对位置 */
+    .home-graphics-wrap {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 1056px;
+      height: 100%;
+      margin-left: -528px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .home-graphics-wrap > * {
+      pointer-events: auto;
+    }
+
+    /* 首页可点击元素通用样式 */
+    .home-clickable {
+      position: absolute;
+      cursor: pointer;
+      z-index: 5;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .home-clickable img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    .home-clickable:hover {
+      transform: scale(1.05);
+    }
+
+    .home-clickable.bouncing {
+      animation: graphicBounce 0.4s ease-out;
+    }
+
+    /* 草坪：可点击数字图形，点击触发花瓣 + 回弹 */
+    .digital-graphic {
+      position: absolute;
+      top: 587px;
+      left: 0;
+      width: 1056px;
+      height: 376px;
+      cursor: pointer;
+      z-index: 5;
+      will-change: transform;
+      transform-origin: 50% 50%;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .digital-graphic:hover {
+      transform: scale(1.03);
+    }
+
+    .digital-graphic:active {
+      transform: scale(0.97);
+    }
+
+    /* 点击数字图形的回弹动画：scale 1 -> 1.15 -> 1，0.4s ease-out */
+    .digital-graphic.bouncing {
+      animation: graphicBounce 0.4s ease-out;
+    }
+
+    @keyframes graphicBounce {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .digital-graphic img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 首页各导航图标定位（依据 Figma 244_955 帧导出坐标） */
+    .home-hello {
+      top: 206px;
+      left: 34px;
+      width: 494px;
+      height: 274px;
+    }
+
+    .home-home-icon {
+      top: 414px;
+      left: 503px;
+      width: 299px;
+      height: 200px;
+    }
+
+    .home-garden {
+      top: 480px;
+      left: 888px;
+      width: 113px;
+      height: 188px;
+    }
+
+    .home-catalog {
+      top: 202px;
+      left: 763px;
+      width: 168px;
+      height: 212px;
+    }
+
+    /* 飘落的花瓣容器 */
+    .petal-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      overflow: hidden;
+    }
+
+    .petal {
+      position: absolute;
+      width: var(--petal-size, 22px);
+      height: var(--petal-size, 22px);
+      top: -40px;
+      pointer-events: none;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+    }
+
+    /* 花瓣飘落关键帧：随机性由 JS 控制 size/duration/sway/rotate，仅 transform + opacity */
+    @keyframes petalFall {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      25% {
+        transform: translateY(290px) translateX(var(--sway-a, 60px)) rotate(calc(var(--petal-rotate, 360deg) * 0.25));
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(580px) translateX(var(--sway-b, -60px)) rotate(calc(var(--petal-rotate, 360deg) * 0.5));
+        opacity: 1;
+      }
+      75% {
+        transform: translateY(870px) translateX(var(--sway-a, 60px)) rotate(calc(var(--petal-rotate, 360deg) * 0.75));
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(1160px) translateX(0) rotate(var(--petal-rotate, 360deg));
+        opacity: 0;
+      }
+    }
+
+    @keyframes slowRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-24px); }
+    }
+
+    /* 滚动提示 */
+    .scroll-hint {
+      position: absolute;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #6b6b7b;
+      font-size: 14px;
+      animation: floatY 2.2s ease-in-out infinite;
+    }
+
+    .scroll-hint .mouse {
+      width: 24px;
+      height: 38px;
+      border: 2px solid #6b6b7b;
+      border-radius: 14px;
+      position: relative;
+    }
+
+    .scroll-hint .mouse::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 6px;
+      background: #6b6b7b;
+      border-radius: 2px;
+      animation: scrollDot 1.6s ease-in-out infinite;
+    }
+
+    @keyframes scrollDot {
+      0%, 100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      50% { opacity: 0.3; transform: translateX(-50%) translateY(10px); }
+    }
+
+    /* =========================================================
+       Screen-About：可拖拽纸条布局（仅本区块修改）
+       硬性约束：所有动画元素 transform-origin:50% 50% !important；
+       仅使用 transform / opacity；父容器不添加任何动画 transform。
+       ========================================================= */
+    .screen-about {
+      background: #FAFCF1;
+      user-select: none;
+    }
+
+    /* --- 1. 背景：1920×1080 铺满整个区块 --- */
+    .about-bg-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .about-bg-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center center;
+    }
+
+    /* --- 2. 可拖拽纸条层 --- */
+    .about-notes-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+    }
+
+    .about-note {
+      position: absolute;
+      cursor: grab;
+      transform-origin: 50% 50% !important;
+      will-change: transform;
+      filter: drop-shadow(0 10px 28px rgba(0, 0, 0, 0.12));
+      transition: filter 0.2s ease;
+    }
+
+    .about-note:active {
+      cursor: grabbing;
+      filter: drop-shadow(0 16px 40px rgba(0, 0, 0, 0.18));
+    }
+
+    .about-note img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+      transform-origin: 50% 50% !important;
+      will-change: transform;
+    }
+
+    /* 点击/拖拽开始时的回弹动画：scale 1 -> 1.15 -> 1，0.4s ease-out */
+    .about-note.bouncing img {
+      animation: noteBounce 0.4s ease-out;
+    }
+
+    @keyframes noteBounce {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.15);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* --- 3. hello 1：左右轻微抖动循环动画 --- */
+    .about-hello {
+      position: absolute;
+      left: 1490px;
+      top: 750px;
+      width: 278px;
+      height: 154px;
+      z-index: 5;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: helloShake 1.4s ease-in-out infinite;
+    }
+
+    .about-hello img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes helloShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* --- 4. 装饰元素：右下角纸飞机 --- */
+    .about-plane {
+      position: absolute;
+      right: 120px;
+      bottom: 110px;
+      width: 92px;
+      height: 92px;
+      z-index: 6;
+      pointer-events: none;
+      transform-origin: 50% 50% !important;
+      filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.08));
+    }
+
+    /* =========================================================
+       Screen-Project：目录 → 打开的目录本 → 详情页
+       ========================================================= */
+    #project {
+      background: #FEFAF3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Project 背景：统一使用纯色 #FEFAF3，隐藏装饰图以保留代码 */
+    .project-bg-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      display: none;
+    }
+
+    .project-bg-layer img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .project-stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    /* 目录首帧 */
+    .project-catalog {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0px;
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    .project-catalog.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(0.95);
+    }
+
+    .project-catalog > img {
+      width: 1920px;
+      height: 1080px;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* 提示文字：请尝试点击文件查看更多作品详情 */
+    .project-hint {
+      position: absolute;
+      top: 200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 22px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .project-hint img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 可点击目录选项（透明点击热区，背景图已包含视觉） */
+    .catalog-option {
+      position: relative;
+      width: 435px;
+      height: 581px;
+      flex-shrink: 0;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+      transition: transform 0.5s ease, box-shadow 0.35s ease;
+      will-change: transform, opacity;
+      /* 初始状态：从底部 1200px 外滑入 */
+      opacity: 0;
+      transform: translateY(1200px) rotate(var(--option-rotate, 0deg));
+      z-index: 1;
+      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.14));
+    }
+
+    /* 4 个目录选项的固定旋转角度 */
+    .catalog-option:nth-child(1) { --option-rotate: 9deg; }
+    .catalog-option:nth-child(2) { --option-rotate: -5deg; }
+    .catalog-option:nth-child(3) { --option-rotate: -9deg; }
+    .catalog-option:nth-child(4) { --option-rotate: 7deg; }
+
+    /* Project 进入视口：目录选项从底部向上滑入， stagger 延迟 */
+    #project.in-view .catalog-option {
+      animation: optionSlideUp 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    #project.in-view .catalog-option:nth-child(1) { animation-delay: 0.05s; }
+    #project.in-view .catalog-option:nth-child(2) { animation-delay: 0.15s; }
+    #project.in-view .catalog-option:nth-child(3) { animation-delay: 0.25s; }
+    #project.in-view .catalog-option:nth-child(4) { animation-delay: 0.35s; }
+
+    @keyframes optionSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(1200px) rotate(var(--option-rotate, 0deg));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg));
+      }
+    }
+
+    .catalog-option img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .catalog-option:hover {
+      /* 悬停时目录保持垂直，JS 在此基础上叠加镜头跟随 */
+      transform: translateY(0) rotate(0deg);
+      z-index: 10;
+      filter: drop-shadow(0 28px 56px rgba(0, 0, 0, 0.22));
+    }
+
+    /* 悬停时内部图片回弹：scale 1 -> 1.15 -> 1，0.4s ease-out */
+    .catalog-option:hover img {
+      animation: catalogBounce 0.4s ease-out;
+    }
+
+    @keyframes catalogBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    /* 点击目录：书本左右翻页动效 */
+    .catalog-option.flipping-left {
+      animation: optionFlipLeft 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      pointer-events: none;
+    }
+
+    .catalog-option.flipping-right {
+      animation: optionFlipRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes optionFlipLeft {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(0deg) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(-90deg) scale(0.92);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(-180deg) scale(0.85);
+      }
+    }
+
+    @keyframes optionFlipRight {
+      0% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(0deg) scale(1);
+      }
+      50% {
+        opacity: 0.9;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(90deg) scale(0.92);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(0) rotate(var(--option-rotate, 0deg)) rotateY(180deg) scale(0.85);
+      }
+    }
+
+    /* 打开的目录本 */
+    .project-open-book {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 710px;
+      height: 505px;
+      transform: translate(-50%, -50%) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform, opacity;
+      cursor: pointer;
+      transform-origin: 50% 50%;
+    }
+
+    .project-open-book.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .project-open-book > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    .project-open-book.active:hover {
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    /* 目录本内掉落图片 */
+    .open-book-images {
+      position: absolute;
+      inset: 0;
+      pointer-events: auto;
+    }
+
+    .open-book-img {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-100px) rotate(0deg);
+      transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+      cursor: grab;
+      user-select: none;
+    }
+
+    .open-book-img:active {
+      cursor: grabbing;
+    }
+
+    .open-book-img:nth-child(1) {
+      left: 0;
+      top: 0;
+      width: 710px;
+      height: 505px;
+      --img-rotate: -2deg;
+    }
+
+    .open-book-img:nth-child(2) {
+      left: 402px;
+      top: 27px;
+      width: 342px;
+      height: 450px;
+      --img-rotate: 3deg;
+    }
+
+    .project-open-book.active .open-book-img:nth-child(1) {
+      opacity: 1;
+      transform: translateY(0) rotate(var(--img-rotate));
+      transition-delay: 0.2s;
+    }
+
+    .project-open-book.active .open-book-img:nth-child(2) {
+      opacity: 1;
+      transform: translateY(0) rotate(var(--img-rotate));
+      transition-delay: 0.38s;
+    }
+
+    /* 作品集目录详情页全图：宽度 1920px，按图片自然高度撑满整页 */
+    .detail-content.detail-full {
+      padding: 0;
+      display: block;
+      height: auto;
+      min-height: calc(100vh - 80px);
+      overflow: visible;
+    }
+
+    .detail-content.detail-full img {
+      width: 1920px;
+      height: auto;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* =========================================================
+       项目详情子页面（单文件内模拟独立页面）
+       ========================================================= */
+    .project-detail {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      width: 1920px;
+      height: 100vh;
+      margin-left: -960px;
+      z-index: 900;
+      background: #ffffff;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(40px);
+      transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform, opacity;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .project-detail.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    /* 详情页翻页弹出：从 scale 0.85 + rotateY 翻转至正常 */
+    .project-detail.flip-pop {
+      animation: detailFlipPop 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes detailFlipPop {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.82) rotateY(-18deg);
+      }
+      55% {
+        opacity: 1;
+        transform: translateY(0) scale(1.02) rotateY(6deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotateY(0deg);
+      }
+    }
+
+    .detail-nav {
+      position: sticky;
+      top: 0;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 72px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+      z-index: 10;
+    }
+
+    .detail-back {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      color: #4a4a5a;
+      cursor: pointer;
+      transition: color 0.2s ease, transform 0.2s ease;
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .detail-back:hover {
+      color: #5b6cff;
+      transform: translateX(-6px);
+    }
+
+    .detail-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    .detail-content {
+      height: 1000px;
+      display: flex;
+      padding: 80px 120px;
+      gap: 80px;
+    }
+
+    .detail-visual {
+      width: 720px;
+      height: 720px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #e0e7ff, #f3e8ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-visual svg {
+      width: 300px;
+      height: 300px;
+      opacity: 0.8;
+    }
+
+    .detail-text {
+      flex: 1;
+      padding-top: 40px;
+    }
+
+    .detail-text h3 {
+      font-size: 52px;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-bottom: 32px;
+    }
+
+    .detail-text p {
+      font-size: 20px;
+      color: #5a5a6e;
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 40px;
+    }
+
+    .detail-tag {
+      padding: 10px 22px;
+      background: #f1f5f9;
+      border-radius: 30px;
+      font-size: 15px;
+      color: #475569;
+    }
+
+    /* =========================================================
+       Screen-PortfolioOpen：打开的目录
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #portfolioOpen {
+      background: #FEFAF3;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #portfolioOpen .portfolio-open-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      display: none;
+    }
+
+    #portfolioOpen .portfolio-open-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 作品集标题：手写涂鸦出现 */
+    #portfolioOpen .portfolio-open-title {
+      position: absolute;
+      left: 533px;
+      top: 0;
+      width: 855px;
+      height: 103px;
+      z-index: 2;
+      opacity: 0;
+      transform: scale(0.85);
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+    }
+
+    #portfolioOpen .portfolio-open-title img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* 首页图标：左右轻微抖动循环 */
+    #portfolioOpen .portfolio-open-home {
+      position: absolute;
+      left: 1122px;
+      top: 819px;
+      width: 299px;
+      height: 200px;
+      z-index: 2;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: portfolioHomeShake 1.4s ease-in-out infinite;
+    }
+
+    #portfolioOpen .portfolio-open-home img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes portfolioHomeShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* 文件夹组合：居中于画面 */
+    #portfolioOpen .folder-composition {
+      position: absolute;
+      left: 451px;
+      top: 62.5px;
+      width: 1018px;
+      height: 955px;
+      z-index: 1;
+    }
+
+    #portfolioOpen .folder-base {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1018px;
+      height: 955px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #portfolioOpen .folder-base img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #portfolioOpen .folder-item {
+      position: absolute;
+      opacity: 0;
+      transform: translateY(-220px);
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      z-index: 1;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+
+    #portfolioOpen .folder-item:active {
+      cursor: grabbing;
+    }
+
+    #portfolioOpen .folder-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    #portfolioOpen .folder-book {
+      left: 167px;
+      top: 225px;
+      width: 710px;
+      height: 505px;
+    }
+
+    #portfolioOpen .folder-sticky {
+      left: 0;
+      top: 248px;
+      width: 482px;
+      height: 482px;
+    }
+
+    #portfolioOpen .folder-grid {
+      left: 676px;
+      top: 140px;
+      width: 342px;
+      height: 450px;
+    }
+
+    /* 进入视口后触发掉落与涂鸦动画（仅触发一次） */
+    #portfolioOpen.in-view .folder-book {
+      animation: folderDrop 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    #portfolioOpen.in-view .folder-sticky {
+      animation: folderDrop 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 0.14s forwards;
+    }
+
+    #portfolioOpen.in-view .folder-grid {
+      animation: folderDrop 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) 0.28s forwards;
+    }
+
+    #portfolioOpen.in-view .portfolio-open-title {
+      animation: doodleAppear 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) 0.55s forwards;
+    }
+
+    @keyframes folderDrop {
+      0% {
+        opacity: 0;
+        transform: translateY(-220px) rotate(var(--folder-rotate, 0deg));
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--folder-rotate, 0deg));
+      }
+    }
+
+    @keyframes doodleAppear {
+      0% {
+        opacity: 0;
+        transform: scale(0.85);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* 打字机文字：居中显示 */
+    #portfolioOpen .portfolio-typewriter {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      width: 1100px;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    #portfolioOpen .typewriter-text {
+      font-family: "Source Han Sans SC", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.9;
+      color: #3a3a3a;
+      white-space: pre-line;
+      letter-spacing: 0.04em;
+    }
+
+    #portfolioOpen .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: #3a3a3a;
+      margin-left: 4px;
+      vertical-align: middle;
+      animation: cursorBlink 0.85s step-end infinite;
+      transform-origin: 50% 50%;
+    }
+
+    @keyframes cursorBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* =========================================================
+       Screen-Garden：灵感库（参考 screenshot_195_194）
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #garden {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      width: 1920px;
+      height: 2100px;
+    }
+
+    /* 背景层：使用 screenshot_257_518.png 铺满 */
+    .garden-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .garden-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 花园图标：底部盆栽，左右轻微抖动循环 */
+    .garden-plant {
+      position: absolute;
+      left: 903px;
+      top: 1882px;
+      width: 113px;
+      height: 188px;
+      z-index: 6;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: gardenShake 1.4s ease-in-out infinite;
+    }
+
+    .garden-plant img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes gardenShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* --- 1. 左右分栏主容器 --- */
+    .garden-main {
+      position: absolute;
+      top: 300px;
+      left: 0;
+      width: 1920px;
+      height: 1562px;
+      display: flex;
+      padding: 0;
+      z-index: 5;
+    }
+
+    /* --- 2. 左侧时间轴区域（746px） --- */
+    .garden-timeline {
+      width: 746px;
+      height: 1575px;
+      position: relative;
+      margin-top: -13px;
+      overflow: hidden;
+    }
+
+    .garden-timeline-board {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 761px;
+      height: 1575px;
+      will-change: transform, opacity;
+      transform-origin: 50% 50% !important;
+    }
+
+    .garden-timeline-board > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      pointer-events: none;
+    }
+
+    /* 马赛克遮罩层 */
+    .garden-timeline-mosaic {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      grid-template-rows: repeat(16, 1fr);
+      pointer-events: none;
+    }
+
+    .mosaic-tile {
+      background: #e8f5d6;
+      opacity: 1;
+      will-change: opacity;
+      transform-origin: 50% 50%;
+    }
+
+    #garden.in-view .mosaic-tile {
+      animation: mosaicReveal 0.45s ease-out forwards;
+      animation-delay: calc(var(--row, 0) * 0.08s);
+    }
+
+    @keyframes mosaicReveal {
+      to { opacity: 0; }
+    }
+
+    /* --- 3. 右侧瀑布流区域（1164px） --- */
+    .garden-waterfall {
+      width: 1164px;
+      height: 1596px;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+      margin-top: 4px;
+      margin-left: 10px;
+    }
+
+    .garden-waterfall-col {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 32px;
+    }
+
+    .garden-waterfall-col:nth-child(1) { margin-top: -303px; }
+    .garden-waterfall-col:nth-child(2) { margin-top: 1px; margin-left: 12px; }
+    .garden-waterfall-col:nth-child(3) { margin-top: -303px; margin-left: 12px; }
+
+    .note-card {
+      width: 380px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      background: #ffffff;
+      padding: 18px;
+      row-gap: 16px;
+      opacity: 0;
+      transform: translateY(50px);
+      will-change: transform, opacity;
+      transform-origin: 50% 50% !important;
+      animation-fill-mode: both;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      box-shadow: 0px 10px 7px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .note-card:hover {
+      transform: translateY(-4px);
+      opacity: 0.95;
+    }
+
+    .note-card .note-thumb {
+      width: 344px;
+      height: 459px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .note-card .note-thumb img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .note-card .note-text {
+      width: 344px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #000000;
+      text-align: center;
+    }
+
+    .note-card .note-meta {
+      width: 105px;
+      align-self: center;
+      font-size: 15px;
+      line-height: 19px;
+      color: #000000;
+      text-align: center;
+      letter-spacing: 0;
+    }
+
+    #garden.in-view .note-card {
+      animation: cardFadeIn 0.55s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 瀑布流自动循环滚动：仅 transform，避免 reflow */
+    .garden-waterfall-scroll {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 32px;
+      will-change: transform;
+      transform-origin: 50% 50% !important;
+      animation: waterfallScroll var(--scroll-duration, 20s) linear infinite;
+    }
+
+    .garden-waterfall-col:hover .garden-waterfall-scroll,
+    .garden-waterfall-scroll.paused {
+      animation-play-state: paused;
+    }
+
+    @keyframes waterfallScroll {
+      from { transform: translateY(0); }
+      to { transform: translateY(-50%); }
+    }
+
+    /* 循环轨道内的卡片不再执行入场动画，保持可见 */
+    #garden.in-view .garden-waterfall-scroll .note-card {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* --- 4. 右下角添加按钮 --- */
+    .garden-add-btn {
+      position: fixed;
+      right: 60px;
+      bottom: 60px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transform-origin: 100% 50%;
+      will-change: transform, opacity;
+      transition: opacity 0.3s ease;
+      opacity: 1;
+    }
+
+    .garden-add-btn.hidden {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .garden-add-btn .btn-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #008A04;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: 0 8px 24px rgba(0, 138, 4, 0.35);
+      transition: transform 0.3s ease;
+      transform-origin: 50% 50%;
+      flex-shrink: 0;
+    }
+
+    .garden-add-btn:hover .btn-icon {
+      transform: scale(1.08);
+    }
+
+    .garden-add-btn .btn-label {
+      font-size: 16px;
+      color: #008A04;
+      font-weight: 600;
+      opacity: 1;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      transform-origin: 100% 50%;
+      white-space: nowrap;
+    }
+
+    .garden-add-btn.collapsed .btn-label {
+      opacity: 0;
+      transform: translateX(20px);
+      pointer-events: none;
+    }
+
+    /* 按钮收起/展开切换小箭头 */
+    .garden-add-btn .btn-toggle {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(0, 138, 4, 0.12);
+      color: #008A04;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: 50% 50%;
+      flex-shrink: 0;
+    }
+
+    .garden-add-btn.collapsed .btn-toggle {
+      transform: rotate(180deg);
+    }
+
+    /* 当 body 等祖先带 perspective 导致 fixed 定位相对于 body 时，
+       通过 JS 实时更新 --garden-scroll-y 让按钮保持在视口右下角 */
+    .garden-add-btn.perspective-fix {
+      top: calc(var(--garden-scroll-y, 0px) + 100vh - 60px - var(--garden-btn-height, 56px));
+      bottom: auto;
+    }
+
+    /* --- 5. 添加弹窗（主组件 screenshot_300_471.png） --- */
+    .garden-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .garden-modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* 弹窗打开时隐藏添加按钮，避免在 perspective 容器下出现层级异常 */
+    .garden-add-btn.modal-open {
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+
+    .garden-modal-overlay.perspective-fix {
+      top: var(--garden-scroll-y, 0px);
+      left: 0;
+      right: auto;
+      bottom: auto;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .garden-modal {
+      position: relative;
+      width: 395px;
+      height: 594px;
+      background: url('assets/images/screenshot_300_471.png') no-repeat center / 100% 100%;
+      transform: scale(0.92);
+      opacity: 0;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.3s ease;
+      transform-origin: 50% 50%;
+    }
+
+    .garden-modal-overlay.active .garden-modal {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .garden-modal-preview {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 375px;
+      height: 455px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .garden-modal-preview img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .garden-modal-preview .preview-placeholder {
+      display: none;
+    }
+
+    .garden-modal-preview input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .garden-modal-body {
+      position: absolute;
+      top: 470px;
+      left: 20px;
+      width: 355px;
+      height: 86px;
+      background: #ffffff;
+    }
+
+    .garden-modal-body .modal-text {
+      width: 100%;
+      height: 54px;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      line-height: 1.55;
+      color: #000000;
+      text-align: center;
+      font-family: Inter, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      resize: none;
+      background: transparent;
+    }
+
+    .garden-modal-body .modal-text::placeholder {
+      color: #a2a2a2;
+    }
+
+    .garden-modal-body .modal-date {
+      display: block;
+      width: 130px;
+      height: 24px;
+      margin: 2px auto 0;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      line-height: 24px;
+      color: #000000;
+      text-align: center;
+      font-family: FZLanTingHeiS-R-GB, "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background: transparent;
+    }
+
+    .garden-modal-body .modal-date::placeholder {
+      color: #999999;
+    }
+
+    .garden-modal .btn-submit {
+      position: absolute;
+      left: 50%;
+      bottom: 6px;
+      transform: translateX(-50%);
+      padding: 6px 36px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #008A04;
+      color: #ffffff;
+      font-family: inherit;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      transform-origin: 50% 50%;
+      box-shadow: 0 4px 14px rgba(0, 138, 4, 0.35);
+    }
+
+    .garden-modal .btn-submit:hover {
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* =========================================================
+       Screen-Contact：三纸条轮播（参考 screenshot_212_229）
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #contact {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      height: 1080px;
+    }
+
+    .contact-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .contact-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .contact-carousel {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contact-card {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transform-origin: 50% 50%;
+      cursor: pointer;
+      will-change: transform, opacity;
+      user-select: none;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.4s ease;
+    }
+
+    .contact-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    /* 三个纸条按参考图分别设定尺寸 */
+    .contact-info-card {
+      width: 500px;
+      height: 860px;
+    }
+
+    /* 联系方式卡片上的简历链接热区 */
+    .contact-resume-link {
+      position: absolute;
+      left: 120px;
+      top: 405px;
+      width: 160px;
+      height: 55px;
+      display: none;
+      cursor: pointer;
+      z-index: 20;
+      border-radius: 8px;
+      transition: background 0.25s ease;
+    }
+
+    .contact-info-card.active .contact-resume-link {
+      display: block;
+    }
+
+    .contact-resume-link:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .contact-message-card {
+      width: 800px;
+      height: 560px;
+    }
+
+    .contact-note-card {
+      width: 600px;
+      height: 720px;
+    }
+
+    /* 便利贴可编辑文字，覆盖原图文字 */
+    .contact-note-text {
+      position: absolute;
+      top: 340px;
+      left: 190px;
+      width: 220px;
+      height: 40px;
+      font-family: "Encode Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+      font-size: 21px;
+      letter-spacing: 0;
+      color: #000000;
+      text-align: center;
+      line-height: 40px;
+      white-space: nowrap;
+      overflow: hidden;
+      outline: none;
+      user-select: text;
+      cursor: text;
+      z-index: 5;
+      background: #3d8cce;
+      border-radius: 2px;
+      transform-origin: 50% 50%;
+    }
+
+    .contact-note-text:empty::before {
+      content: attr(data-placeholder);
+      color: #000000;
+      pointer-events: none;
+    }
+
+    .contact-note-text:focus {
+      background: #3d8cce;
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+    }
+
+    .contact-card.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+      z-index: 10;
+    }
+
+    .contact-card.left {
+      transform: translate(-50%, -50%) translateX(-420px) scale(0.78) rotate(-5deg);
+      opacity: 0.65;
+      z-index: 5;
+    }
+
+    .contact-card.right {
+      transform: translate(-50%, -50%) translateX(420px) scale(0.78) rotate(5deg);
+      opacity: 0.65;
+      z-index: 5;
+    }
+
+    .contact-card:hover {
+      opacity: 1;
+    }
+
+    .contact-card.active:hover {
+      transform: translate(-50%, -50%) scale(1.02);
+    }
+
+    /* 目录 1：右上角装饰图标，左右轻微抖动循环 */
+    .contact-catalog {
+      position: absolute;
+      top: 120px;
+      right: 130px;
+      width: 168px;
+      height: 212px;
+      z-index: 20;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: contactCatalogShake 1.4s ease-in-out infinite;
+    }
+
+    .contact-catalog img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    @keyframes contactCatalogShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+
+    /* --- 轮播指示器 --- */
+    .contact-dots {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 14px;
+      z-index: 20;
+    }
+
+    .contact-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease;
+      transform-origin: 50% 50%;
+    }
+
+    .contact-dot.active {
+      background: #000000;
+      transform: scale(1.3);
+    }
+
+    /* --- 联系页三张纸条（静态布局，参考 screenshot_212_229） --- */
+    .contact-note-item {
+      position: absolute;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  filter 0.25s ease;
+      filter: drop-shadow(0 14px 34px rgba(0, 0, 0, 0.12));
+    }
+
+    .contact-note-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      pointer-events: none;
+    }
+
+    .contact-note-item:hover {
+      transform: scale(1.04);
+      filter: drop-shadow(0 20px 48px rgba(0, 0, 0, 0.18));
+      z-index: 30;
+    }
+
+    .contact-note-item.bouncing {
+      animation: contactNoteBounce 0.4s ease-out;
+    }
+
+    @keyframes contactNoteBounce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .contact-note-blue {
+      left: 70px;
+      top: 420px;
+      width: 420px;
+      z-index: 12;
+    }
+
+    .contact-note-message {
+      left: 50%;
+      top: 460px;
+      width: 1080px;
+      transform: translateX(-50%);
+      z-index: 14;
+    }
+
+    .contact-note-message:hover {
+      transform: translateX(-50%) scale(1.04);
+    }
+
+    .contact-note-message.bouncing {
+      animation: contactMessageBounce 0.4s ease-out;
+    }
+
+    @keyframes contactMessageBounce {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.15); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+
+    .contact-note-info {
+      right: 70px;
+      top: 320px;
+      width: 400px;
+      z-index: 13;
+    }
+
+    /* =========================================================
+       Screen-Ending：结尾页（罐子 + 星光）
+       硬性约束：动画仅 transform/opacity；transform-origin:50% 50%
+       ========================================================= */
+    #ending {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+      width: 1920px;
+      height: 1080px;
+    }
+
+    .ending-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ending-bg img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 罐子：居中显示，保持原图比例 */
+    .ending-jar {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .ending-jar img {
+      width: 760px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    /* 蝴蝶结：顶部装饰带 */
+    .ending-bow {
+      position: absolute;
+      top: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1920px;
+      height: auto;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ending-bow img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* 星光：自然飘落，倒三角区域分布，尺寸 1~30px 随机 */
+    .ending-stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1920px;
+      height: 1080px;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ending-star {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: var(--size);
+      height: var(--size);
+      margin-left: calc(var(--size) * -0.5);
+      transform-origin: 50% 50%;
+      will-change: transform, opacity;
+      opacity: 0;
+      animation: starFall var(--duration) linear var(--delay) infinite;
+    }
+
+    .ending-star img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    @keyframes starFall {
+      0% {
+        transform: translate(var(--start-x), var(--start-y)) rotate(0deg);
+        opacity: 0;
+      }
+      6% {
+        opacity: 1;
+      }
+      94% {
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--end-x), 1120px) rotate(var(--rotate));
+        opacity: 0;
+      }
+    }
+
+    /* =========================================================
+       网域：底部 1920×80 横条
+       ========================================================= */
+    #domain {
+      width: 1920px;
+      height: 80px;
+      position: relative;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    #domain img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* 留言按钮：固定在结尾区块右下角 */
+    .message-btn-wrap {
+      position: absolute;
+      bottom: 60px;
+      right: 60px;
+      width: 211px;
+      height: 78px;
+      z-index: 998;
+      transform-origin: 50% 50%;
+      animation: floatMessage 3.2s ease-in-out infinite;
+    }
+
+    .message-btn {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .message-btn img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .message-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .message-btn:active {
+      transform: scale(0.96);
+    }
+
+    @keyframes floatMessage {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    /* =========================================================
+       留言弹窗
+       ========================================================= */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      will-change: opacity, transform;
+      transform: translateY(var(--popup-scroll-y, 0px));
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .popup-modal {
+      position: relative;
+      width: 393px;
+      height: 651px;
+      background: transparent;
+      border-radius: 0;
+      padding: 0;
+      box-shadow: none;
+      transform: scale(0.88);
+      opacity: 0;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                  opacity 0.35s ease;
+      will-change: transform, opacity;
+      transform-origin: 50% 50%;
+    }
+
+    .popup-overlay.active .popup-modal {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .popup-send-img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+      pointer-events: none;
+    }
+
+    .popup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .popup-header h3 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a2e;
+    }
+
+    .popup-close {
+      width: 40px;
+      height: 40px;
+      border: none;
+      background: #f1f5f9;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 22px;
+      color: #64748b;
+      transition: background 0.2s ease, transform 0.2s ease;
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .popup-close:hover {
+      background: #e2e8f0;
+      transform: rotate(90deg);
+    }
+
+    .popup-form label {
+      display: block;
+      font-size: 15px;
+      color: #475569;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .popup-form input,
+    .popup-form textarea {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 16px;
+      color: #1e293b;
+      margin-bottom: 22px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+
+    .popup-form input:focus,
+    .popup-form textarea:focus {
+      border-color: #5b6cff;
+      box-shadow: 0 0 0 3px rgba(91, 108, 255, 0.12);
+    }
+
+    .popup-form textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .popup-submit {
+      width: 100%;
+      padding: 16px;
+      background: #5b6cff;
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+      will-change: transform;
+      transform-origin: 50% 50%;
+    }
+
+    .popup-submit:hover {
+      background: #4f5ee6;
+    }
+
+    .popup-submit:active {
+      transform: scale(0.98);
+    }
+  -->
+</head>
+<body>
+  <!-- =========================================================
+       最外层 1920px 画布
+       ========================================================= -->
+  <div class="wrap-1920">
+
+    <!-- =========================================================
+         顶部固定导航栏
+         ========================================================= -->
+    <nav class="nav-bar" id="navBar">
+      <div class="nav-logo" data-target="home">
+        <img src="assets/images/screenshot_244_919.png" alt="logo 1" />
+      </div>
+      <div class="nav-links">
+        <span class="nav-btn" data-target="about">
+          <img src="assets/images/screenshot_244_921.png" alt="关于" />
+        </span>
+        <span class="nav-btn" data-target="project">
+          <img src="assets/images/screenshot_244_922.png" alt="作品" />
+        </span>
+        <span class="nav-btn" data-target="garden">
+          <img src="assets/images/screenshot_244_924.png" alt="花园" />
+        </span>
+        <span class="nav-btn" data-target="contact">
+          <img src="assets/images/screenshot_244_926.png" alt="联系" />
+        </span>
+      </div>
+    </nav>
+
+    <!-- =========================================================
+         Screen-Home：首页
+         ========================================================= -->
+    <section class="screen-1080" id="home">
+      <!-- 背景 -->
+      <div class="home-bg-layer">
+        <img src="assets/images/screenshot_244_957.png" alt="首页背景"/>
+      </div>
+
+      <!-- 首页图形组合：整体水平居中 -->
+      <div class="home-graphics-wrap">
+        <!-- 可点击数字图形：草坪 -->
+        <div class="digital-graphic" id="digitalGraphic" title="点击触发花瓣">
+          <img src="assets/images/screenshot_244_964.png" alt="草坪"/>
+        </div>
+
+        <!-- hello 1 → 关于 ABOUT -->
+        <div class="home-clickable home-hello" data-home-target="about" title="关于 ABOUT">
+          <img src="assets/images/screenshot_244_963.png" alt="hello 1"/>
+        </div>
+
+        <!-- 首页 → 目录 -->
+        <div class="home-clickable home-home-icon" data-home-target="catalog" title="目录">
+          <img src="assets/images/screenshot_244_970.png" alt="首页"/>
+        </div>
+
+        <!-- 花园 → 灵感库 -->
+        <div class="home-clickable home-garden" data-home-target="garden" title="灵感库">
+          <img src="assets/images/screenshot_244_966.png" alt="花园"/>
+        </div>
+
+        <!-- 目录 → 联系方式 -->
+        <div class="home-clickable home-catalog" data-home-target="contact" title="联系方式">
+          <img src="assets/images/screenshot_244_968.png" alt="目录"/>
+        </div>
+      </div>
+
+      <!-- 花瓣飘落层 -->
+      <div class="petal-layer" id="petalLayer"></div>
+
+      <div class="scroll-hint">
+        <span>SCROLL</span>
+        <div class="mouse"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen-About：关于页（可拖拽纸条）
+         ========================================================= -->
+    <section class="screen-1080 screen-about" id="about">
+      <!-- 背景：1920×1080 铺满整个区块 -->
+      <div class="about-bg-layer">
+        <img src="assets/images/screenshot_244_1303.png" alt="关于背景"/>
+      </div>
+
+      <!-- 可拖拽纸条层 -->
+      <div class="about-notes-layer" id="aboutNotesLayer">
+        <!-- 自我介绍小纸条 -->
+        <div class="about-note" data-note="intro" style="left: 400px; top: 60px; width: 676px; height: 958px;">
+          <img src="assets/images/screenshot_244_974.png" alt="自我介绍小纸条" />
+        </div>
+        <!-- 经历邮票 -->
+        <div class="about-note" data-note="exp" style="left: 760px; top: 120px; width: 637px;">
+          <img src="assets/images/screenshot_244_986.png" alt="经历邮票" />
+        </div>
+        <!-- 信封 -->
+        <div class="about-note" data-note="envelope" style="left: 760px; top: 580px; width: 349px;">
+          <img src="assets/images/screenshot_244_1061.png" alt="信封" />
+        </div>
+        <!-- 山月桂-内夹页 -->
+        <div class="about-note" data-note="laurel" style="left: 1300px; top: 160px; width: 174px;">
+          <img src="assets/images/screenshot_244_1010.png" alt="山月桂-内夹页" />
+        </div>
+        <!-- 技能 -->
+        <div class="about-note" data-note="skill" style="left: 1490px; top: 580px; width: 316px;">
+          <img src="assets/images/screenshot_244_1003.png" alt="技能" />
+        </div>
+        <!-- 个人照片 -->
+        <div class="about-note" data-note="photo" style="left: 1200px; top: 300px; width: 505px; height: 446px;">
+          <img src="assets/images/screenshot_244_1059.png" alt="个人照片" />
+        </div>
+      </div>
+
+      <!-- hello 1：左右轻微抖动 -->
+      <div class="about-hello">
+        <img src="assets/images/screenshot_244_1286.png" alt="hello 1"/>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen-Project：作品集（目录 → 打开的目录本 → 详情页）
+         ========================================================= -->
+    <section class="screen-1080" id="project">
+      <div class="project-stage" id="projectStage">
+        <!-- Project 背景：1920×1080 铺满 -->
+        <div class="project-bg-layer">
+          <img src="assets/images/screenshot_244_1296.png" alt="作品集背景"/>
+        </div>
+
+        <!-- 1. 目录首帧 -->
+        <div class="project-catalog" id="projectCatalog">
+          <!-- 提示文字 -->
+          <div class="project-hint">
+            <img src="assets/images/screenshot_304_473.png" alt="请尝试点击文件查看更多作品详情" />
+          </div>
+
+          <!-- 4 个目录选项：统一 435x581，水平均匀分布 -->
+          <div class="catalog-option" data-detail="project-game" title="目录选项01">
+            <img src="assets/images/screenshot_244_1164.png" alt="目录选项01" />
+          </div>
+          <div class="catalog-option" data-detail="project-cultural" title="目录选项02">
+            <img src="assets/images/screenshot_244_1185.png" alt="目录选项02" />
+          </div>
+          <div class="catalog-option" data-detail="project-brand" title="目录选项03">
+            <img src="assets/images/screenshot_244_1206.png" alt="目录选项03" />
+          </div>
+          <div class="catalog-option" data-detail="project-book" title="目录选项04">
+            <img src="assets/images/screenshot_244_1265.png" alt="目录选项04" />
+          </div>
+        </div>
+
+        <!-- 2. 打开的目录本 -->
+        <div class="project-open-book" id="projectOpenBook" title="点击进入详情页">
+          <img src="assets/images/screenshot_195_302.png" alt="打开的目录本" />
+          <div class="open-book-images">
+            <img src="assets/images/mr0xs4wp-ech23o0.png" alt="作品图 1" class="open-book-img" data-rotate="-2deg" />
+            <img src="assets/images/mr0xs4wp-vsmihmu.png" alt="作品图 2" class="open-book-img" data-rotate="3deg" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         作品详情页：游戏界面设计
+         ========================================================= -->
+    <section class="project-detail" id="project-game" data-project-detail>
+      <div class="detail-nav">
+        <div class="detail-back" data-back>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          返回作品集
+        </div>
+        <div class="detail-title">游戏界面设计</div>
+        <div style="width:120px;"></div>
+      </div>
+      <div class="detail-content detail-full">
+        <img src="assets/images/screenshot_244_1067.png" alt="01详细页" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         作品详情页：文创设计
+         ========================================================= -->
+    <section class="project-detail" id="project-cultural" data-project-detail>
+      <div class="detail-nav">
+        <div class="detail-back" data-back>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          返回作品集
+        </div>
+        <div class="detail-title">文创设计</div>
+        <div style="width:120px;"></div>
+      </div>
+      <div class="detail-content detail-full">
+        <img src="assets/images/screenshot_244_1068.png" alt="02详细页" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         作品详情页：品牌设计
+         ========================================================= -->
+    <section class="project-detail" id="project-brand" data-project-detail>
+      <div class="detail-nav">
+        <div class="detail-back" data-back>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          返回作品集
+        </div>
+        <div class="detail-title">品牌设计</div>
+        <div style="width:120px;"></div>
+      </div>
+      <div class="detail-content detail-full">
+        <img src="assets/images/screenshot_244_1069.png" alt="03详细页" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         作品详情页：书籍设计
+         ========================================================= -->
+    <section class="project-detail" id="project-book" data-project-detail>
+      <div class="detail-nav">
+        <div class="detail-back" data-back>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          返回作品集
+        </div>
+        <div class="detail-title">书籍设计</div>
+        <div style="width:120px;"></div>
+      </div>
+      <div class="detail-content detail-full">
+        <img src="assets/images/screenshot_244_1070.png" alt="04详细页" />
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen-PortfolioOpen：打开的目录
+         ========================================================= -->
+    <section class="screen-1080" id="portfolioOpen">
+      <!-- 背景图 -->
+      <div class="portfolio-open-bg">
+        <img src="assets/images/screenshot_244_1071.png" alt="打开的目录背景" />
+      </div>
+
+      <!-- 文件夹组合（居中于画面） -->
+      <div class="folder-composition">
+        <!-- 文件夹翻开：作为底部基准，固定居中 -->
+        <div class="folder-base">
+          <img src="assets/images/screenshot_244_1153.png" alt="文件夹翻开" />
+        </div>
+        <!-- 打开的目录本 -->
+        <div class="folder-item folder-book" style="--folder-rotate: -2deg;">
+          <img src="assets/images/screenshot_244_1154.png" alt="打开的目录本" />
+        </div>
+        <!-- 黄色便签 -->
+        <div class="folder-item folder-sticky" style="--folder-rotate: 7deg;">
+          <img src="assets/images/screenshot_244_1159.png" alt="黄色便签" />
+        </div>
+        <!-- 白色格纸 -->
+        <div class="folder-item folder-grid" style="--folder-rotate: -5deg;">
+          <img src="assets/images/screenshot_257_472.png" alt="白色格纸" />
+        </div>
+      </div>
+
+      <!-- 作品集标题：手写涂鸦出现 -->
+      <div class="portfolio-open-title">
+        <img src="assets/images/screenshot_244_1437.png" alt="作品集标题" />
+      </div>
+
+      <!-- 首页图标：左右轻微抖动循环，点击返回首页 -->
+      <div class="portfolio-open-home" data-home-target="home" title="返回首页">
+        <img src="assets/images/screenshot_244_1289.png" alt="首页图标" />
+      </div>
+
+      <!-- 打字机文字：作品说明 -->
+      <div class="portfolio-typewriter">
+        <span class="typewriter-text"></span><span class="typewriter-cursor"></span>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen-Garden：灵感库（参考 screenshot_244_1328）
+         ========================================================= -->
+    <section class="screen-1080" id="garden">
+      <!-- 背景层：绿色半调装饰带 -->
+      <div class="garden-bg">
+        <img src="assets/images/screenshot_257_518.png" alt="花园背景"/>
+      </div>
+
+      <!-- 花园图标：左右轻微抖动循环 -->
+      <div class="garden-plant">
+        <img src="assets/images/screenshot_257_517.png" alt="花园"/>
+      </div>
+
+      <!-- 1. 主内容区：左侧时间轴 + 右侧瀑布流 -->
+      <div class="garden-main">
+        <!-- 左侧时间轴 -->
+        <aside class="garden-timeline">
+          <div class="garden-timeline-board">
+            <img src="assets/images/screenshot_260_479.png" alt="左侧时间线"/>
+          </div>
+          <!-- 马赛克遮罩层：进入视口后从上至下渐进消失 -->
+          <div class="garden-timeline-mosaic" id="gardenTimelineMosaic"></div>
+        </aside>
+
+        <!-- 右侧瀑布流 -->
+        <div class="garden-waterfall">
+          <!-- 第 1 列 -->
+          <div class="garden-waterfall-col">
+            <div class="note-card" style="--delay:0.10s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-biexg6b.png" alt=""/></div>
+              <div class="note-text">这是一个小女孩抱着一颗大树，清新可爱的涂鸦，整个留白的画面，让整个画面特别温馨。</div>
+              <div class="note-meta">2026/04/07</div>
+            </div>
+            <div class="note-card" style="--delay:0.18s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-gs724ym.png" alt=""/></div>
+              <div class="note-text">我在研究配色的时候出现的一个素材，低饱和的粉黄蓝配色显得清新脱俗。</div>
+              <div class="note-meta">2026/06/15</div>
+            </div>
+            <div class="note-card" style="--delay:0.26s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-0da132r.png" alt=""/></div>
+              <div class="note-text">我在思考时间的时候，偶然发现的画，现实和涂鸦的结合，图形创意的新形式。</div>
+              <div class="note-meta">2026/06/19</div>
+            </div>
+            <div class="note-card" style="--delay:0.34s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-ryty5wm.png" alt=""/></div>
+              <div class="note-text">我为什么要记录这个灵感，是不是觉得这个好看，我有什么原因，在什么地方记录的这个灵感，可以做出什么样子</div>
+              <div class="note-meta">2027/02/02</div>
+            </div>
+          </div>
+          <!-- 第 2 列 -->
+          <div class="garden-waterfall-col">
+            <div class="note-card" style="--delay:0.14s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-mua7rxv.png" alt=""/></div>
+              <div class="note-text">我在观察星空这个的灵感时候发现的</div>
+              <div class="note-meta">2026/06/07</div>
+            </div>
+            <div class="note-card" style="--delay:0.22s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-tfzq0yb.png" alt=""/></div>
+              <div class="note-text">这也是一种太空站</div>
+              <div class="note-meta">2026/06/07</div>
+            </div>
+            <div class="note-card" style="--delay:0.30s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-8eefpvs.png" alt=""/></div>
+              <div class="note-text">我为什么要记录这个灵感，是不是觉得这个好看，我有什么原因，在什么地方记录的这个灵感，可以做出什么样子</div>
+              <div class="note-meta">2027/02/02</div>
+            </div>
+          </div>
+          <!-- 第 3 列 -->
+          <div class="garden-waterfall-col">
+            <div class="note-card" style="--delay:0.10s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-zqgpy4u.png" alt=""/></div>
+              <div class="note-text">我感觉这个手袋娃娃特别的可爱</div>
+              <div class="note-meta">2026/05/08</div>
+            </div>
+            <div class="note-card" style="--delay:0.18s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-ia06yhb.png" alt=""/></div>
+              <div class="note-text">这是某位博主的插画，特别的可爱，丝网印刷风格</div>
+              <div class="note-meta">2026/05/20</div>
+            </div>
+            <div class="note-card" style="--delay:0.26s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-yuvgbeg.png" alt=""/></div>
+              <div class="note-text">哪怕是平常时间也要去图书馆</div>
+              <div class="note-meta">2026/06/02</div>
+            </div>
+            <div class="note-card" style="--delay:0.34s">
+              <div class="note-thumb"><img src="assets/images/mr2g07ji-j9jp2nk.png" alt=""/></div>
+              <div class="note-text">我为什么要记录这个灵感，是不是觉得这个好看，我有什么原因，在什么地方记录的这个灵感，可以做出什么样子</div>
+              <div class="note-meta">2027/02/02</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 右下角添加按钮 -->
+      <div class="garden-add-btn hidden" id="gardenAddBtn">
+        <div class="btn-icon">+</div>
+        <div class="btn-label">添加灵感</div>
+        <div class="btn-toggle">&#x25c0;</div>
+      </div>
+
+      <!-- 3. 添加弹窗 -->
+      <div class="garden-modal-overlay" id="gardenModalOverlay">
+        <div class="garden-modal">
+          <div class="garden-modal-preview" id="gardenPreview">
+            <div class="preview-placeholder">点击上传照片</div>
+            <img id="gardenPreviewImg" src="" alt="" style="display:none"/>
+            <input type="file" id="gardenFileInput" accept="image/*"/>
+          </div>
+          <div class="garden-modal-body">
+            <textarea class="modal-text" id="gardenNoteText" placeholder="我为什么要记录这个灵感，是不是觉得这个好看，我有什么原因，在什么地方记录的这个灵感，可以做出什么样子" aria-label="灵感记录"></textarea>
+            <input type="text" class="modal-date" id="gardenNoteDate" placeholder="2027/02/02" aria-label="日期"/>
+          </div>
+          <button type="button" class="btn-submit" id="gardenSubmitBtn">提交</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen-Contact：联系页（三卡片轮播）
+         ========================================================= -->
+    <section class="screen-1080" id="contact">
+      <!-- 背景层：使用 screenshot_244_1575.png 铺满 -->
+      <div class="contact-bg">
+        <img src="assets/images/screenshot_244_1575.png" alt="联系背景"/>
+      </div>
+
+      <!-- 三卡片轮播 -->
+      <div class="contact-carousel" id="contactCarousel">
+        <div class="contact-card contact-note-card active" data-index="0">
+          <img src="assets/images/screenshot_244_1469.png" alt="便利贴"/>
+          <div class="contact-note-text" contenteditable="plaintext-only" id="contactNoteText" data-placeholder="你想说什么嘛？"></div>
+        </div>
+        <div class="contact-card contact-message-card" data-index="1">
+          <img src="assets/images/screenshot_244_1472.png" alt="留言选项"/>
+        </div>
+        <div class="contact-card contact-info-card" data-index="2">
+          <img src="assets/images/screenshot_244_1459.png" alt="联系方式"/>
+          <a class="contact-resume-link" href="assets/images/resume.jpg" target="_blank" rel="noopener" title="查看简历"></a>
+        </div>
+      </div>
+
+      <!-- 轮播指示器 -->
+      <div class="contact-dots" id="contactDots">
+        <span class="contact-dot active"></span>
+        <span class="contact-dot"></span>
+        <span class="contact-dot"></span>
+      </div>
+
+      <!-- 目录 1：左右轻微抖动循环 -->
+      <div class="contact-catalog">
+        <img src="assets/images/screenshot_245_1610.png" alt="目录 1"/>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         Screen-Ending：结尾页
+         ========================================================= -->
+    <section class="screen-1080" id="ending">
+      <!-- 背景层：使用 screenshot_244_1566.png 铺满 -->
+      <div class="ending-bg">
+        <img src="assets/images/screenshot_244_1566.png" alt="结尾背景"/>
+      </div>
+
+      <!-- 星光：自然飘落，倒三角区域分布 -->
+      <div class="ending-stars" id="endingStars"></div>
+
+      <!-- 罐子居中 -->
+      <div class="ending-jar">
+        <img src="assets/images/screenshot_244_1493.png" alt="玻璃罐"/>
+      </div>
+
+      <!-- 蝴蝶结：底部装饰带 -->
+      <div class="ending-bow">
+        <img src="assets/images/screenshot_244_1542.png" alt="蝴蝶结"/>
+      </div>
+
+      <!-- Leave a note 按钮：固定在结尾区块右下角 -->
+      <div class="message-btn-wrap" id="messageBtnWrap">
+        <button class="message-btn" id="messageBtn" type="button" aria-label="Leave a note">
+          <img src="assets/images/screenshot_281_471.png" alt="Leave a note"/>
+        </button>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         网域：底部 1920×80 横条
+         ========================================================= -->
+    <section id="domain">
+      <img src="assets/images/screenshot_269_486.png" alt="网域"/>
+    </section>
+
+    <!-- =========================================================
+         留言弹窗
+         ========================================================= -->
+    <div class="popup-overlay" id="popupOverlay">
+      <div class="popup-modal" id="popupModal">
+        <button class="popup-close" id="popupClose" type="button" aria-label="关闭">&times;</button>
+        <img class="popup-send-img" src="assets/images/screenshot_280_473.png" alt="send"/>
+      </div>
+    </div>
+
+  </div><!-- /.wrap-1920 -->
+
+  <!-- =========================================================
+       原生 JavaScript 交互逻辑
+       ========================================================= -->
+  <script src="js/main.js"></script><!--
+    (function () {
+      'use strict';
+
+      /* ===== 通用选择器工具 ===== */
+      const $ = (sel, ctx) => (ctx || document).querySelector(sel);
+      const $$ = (sel, ctx) => Array.from((ctx || document).querySelectorAll(sel));
+
+      /* ===== 1. 导航平滑滚动 ===== */
+      function initNav() {
+        $$('.nav-btn, .nav-logo').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const targetId = btn.dataset.target;
+            const target = document.getElementById(targetId);
+            if (target) {
+              // 如果当前在项目详情页，先关闭详情页
+              closeAllProjectDetails();
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+      }
+
+      /* ===== 2. 首页矢量花瓣飘落 ===== */
+      function initPetalFall() {
+        const graphic = $('#digitalGraphic');
+        const layer = $('#petalLayer');
+        if (!graphic || !layer) return;
+
+        function createPetal() {
+          const petal = document.createElement('img');
+          petal.src = 'assets/images/screenshot_196_316.png';
+          petal.alt = '飘落花瓣';
+          petal.className = 'petal';
+          petal.draggable = false;
+          petal.style.objectFit = 'contain';
+
+          // 随机尺寸 12~32px
+          const size = 12 + Math.random() * 20;
+          // 随机水平起点
+          const startX = Math.random() * 1880 + 20;
+          // 随机下落时长 5~12s
+          const duration = 5 + Math.random() * 7;
+          // 左右摇摆幅度 ±150px
+          const swayA = (Math.random() - 0.5) * 300;
+          const swayB = (Math.random() - 0.5) * 300;
+          // 随机持续旋转 0~360°（正负方向）
+          const rotate = Math.random() * 360 * (Math.random() > 0.5 ? 1 : -1);
+
+          petal.style.left = startX + 'px';
+          petal.style.setProperty('--petal-size', size + 'px');
+          petal.style.setProperty('--sway-a', swayA + 'px');
+          petal.style.setProperty('--sway-b', swayB + 'px');
+          petal.style.setProperty('--petal-rotate', rotate + 'deg');
+          // 循环持续飘落，落地透明度逐步衰减至 0，不会瞬间消失
+          petal.style.animation = 'petalFall ' + duration + 's linear infinite';
+
+          layer.appendChild(petal);
+        }
+
+        // 点击数字图形触发回弹 + 35 片花瓣持续飘落
+        graphic.addEventListener('click', () => {
+          // 回弹动画：scale 1 -> 1.15 -> 1，0.4s ease-out
+          if (!graphic.classList.contains('bouncing')) {
+            graphic.classList.add('bouncing');
+            graphic.addEventListener('animationend', () => {
+              graphic.classList.remove('bouncing');
+            }, { once: true });
+          }
+
+          for (let i = 0; i < 35; i++) {
+            createPetal();
+          }
+        });
+
+        // 页面加载后自动飘落少量花瓣作为氛围
+        setTimeout(() => {
+          for (let i = 0; i < 8; i++) {
+            setTimeout(createPetal, i * 200);
+          }
+        }, 1200);
+      }
+
+      /* ===== 2.5 首页图标导航：点击平滑滚动到对应区块 ===== */
+      function initHomeNavigation() {
+        const targets = $$('[data-home-target]');
+        if (!targets.length) return;
+
+        const targetMap = {
+          home: 'home',
+          about: 'about',
+          catalog: 'project',
+          garden: 'garden',
+          contact: 'contact'
+        };
+
+        targets.forEach((el) => {
+          el.addEventListener('click', () => {
+            // 触发回弹动画
+            el.classList.remove('bouncing');
+            void el.offsetWidth;
+            el.classList.add('bouncing');
+            setTimeout(() => el.classList.remove('bouncing'), 400);
+
+            const target = el.dataset.homeTarget;
+            const sectionId = targetMap[target];
+            if (sectionId) {
+              closeAllProjectDetails();
+              const section = document.getElementById(sectionId);
+              if (section) {
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            }
+          });
+        });
+      }
+
+      /* ===== 3. IntersectionObserver 滚动动画（Project 文件夹、Garden 入场） ===== */
+      function initScrollAnimations() {
+        const folders = $$('.folder');
+        const garden = $('#garden');
+
+        // Project 文件夹滚动监听
+        const folderObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            const idx = folders.indexOf(el);
+            setTimeout(() => el.classList.add('in-view'), idx * 120);
+            folderObserver.unobserve(el);
+          });
+        }, { threshold: 0.45, rootMargin: '0px 0px -80px 0px' });
+
+        folders.forEach((f) => folderObserver.observe(f));
+
+        // Garden 区块滚动监听：进入视口时一次性触发入场动画
+        // 使用较小 threshold，确保在 1920px 画布内及各种预览窗口都能触发
+        if (garden) {
+          const gardenObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              garden.classList.add('in-view');
+              generateGardenMosaic();
+              gardenObserver.unobserve(garden);
+            });
+          }, { threshold: 0.05 });
+          gardenObserver.observe(garden);
+        }
+
+        // 生成时间轴马赛克遮罩块（8x16 网格，按行从上至下延迟消失）
+        function generateGardenMosaic() {
+          const mosaic = $('#gardenTimelineMosaic');
+          if (!mosaic || mosaic.children.length) return;
+          const rows = 16;
+          const cols = 8;
+          const fragment = document.createDocumentFragment();
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              const tile = document.createElement('div');
+              tile.className = 'mosaic-tile';
+              tile.style.setProperty('--row', r);
+              fragment.appendChild(tile);
+            }
+          }
+          mosaic.appendChild(fragment);
+        }
+
+        // 打开的目录区块滚动监听：进入视口时触发文件夹掉落与标题涂鸦动画
+        const portfolioOpen = $('#portfolioOpen');
+        if (portfolioOpen && typeof IntersectionObserver !== 'undefined') {
+          const portfolioOpenObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              portfolioOpen.classList.add('in-view');
+              portfolioOpenObserver.unobserve(portfolioOpen);
+            });
+          }, { threshold: 0.05 });
+          portfolioOpenObserver.observe(portfolioOpen);
+        }
+
+        // Project 作品集区块滚动监听：进入视口时触发目录从底部向上滑入
+        const project = $('#project');
+        if (project && typeof IntersectionObserver !== 'undefined') {
+          const projectObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              project.classList.add('in-view');
+              projectObserver.unobserve(project);
+            });
+          }, { threshold: 0.15 });
+          projectObserver.observe(project);
+        }
+
+      }
+
+      /* ===== 3.5 About 纸条：可拖拽 + 点击回弹动画 ===== */
+      function initAboutNotesDrag() {
+        const section = $('.screen-about');
+        if (!section) return;
+
+        const notes = $$('.about-note', section);
+        if (!notes.length) return;
+
+        let maxZ = 10;
+        const sectionW = 1920;
+        const sectionH = 1080;
+
+        notes.forEach((note) => {
+          // 读取当前位移，首次为 0
+          let currentTx = parseFloat(note.dataset.tx || 0);
+          let currentTy = parseFloat(note.dataset.ty || 0);
+
+          function onPointerDown(e) {
+            e.preventDefault();
+
+            // 点击/拖拽开始触发回弹动画
+            note.classList.remove('bouncing');
+            void note.offsetWidth; // 强制重排，确保动画可重复触发
+            note.classList.add('bouncing');
+            setTimeout(() => note.classList.remove('bouncing'), 400);
+
+            // 当前元素置顶
+            maxZ += 1;
+            note.style.zIndex = maxZ;
+
+            const startX = e.clientX;
+            const startY = e.clientY;
+            const startTx = currentTx;
+            const startTy = currentTy;
+
+            function onPointerMove(ev) {
+              const dx = ev.clientX - startX;
+              const dy = ev.clientY - startY;
+              let tx = startTx + dx;
+              let ty = startTy + dy;
+
+              const baseLeft = parseFloat(note.style.left || 0);
+              const baseTop = parseFloat(note.style.top || 0);
+              const w = note.offsetWidth;
+              const h = note.offsetHeight;
+
+              // 限制在 1920×1080 画布内
+              tx = Math.max(-baseLeft, Math.min(sectionW - baseLeft - w, tx));
+              ty = Math.max(-baseTop, Math.min(sectionH - baseTop - h, ty));
+
+              currentTx = tx;
+              currentTy = ty;
+              note.dataset.tx = tx.toFixed(2);
+              note.dataset.ty = ty.toFixed(2);
+              note.style.transform = `translate(${tx}px, ${ty}px)`;
+            }
+
+            function onPointerUp() {
+              window.removeEventListener('pointermove', onPointerMove);
+              window.removeEventListener('pointerup', onPointerUp);
+            }
+
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+          }
+
+          note.addEventListener('pointerdown', onPointerDown);
+        });
+      }
+
+      /* ===== 4. Project 目录 → 打开的目录本 → 详情页 ===== */
+      function initFolderFlip() {
+        const catalog = $('#projectCatalog');
+        const openBook = $('#projectOpenBook');
+        if (!catalog || !openBook) return;
+
+        let currentDetailId = null;
+        let isFlipping = false;
+
+        // 4 个目录选项：鼠标悬停镜头跟随，点击带书本左右翻页后跳转详情页
+        $$('.catalog-option', catalog).forEach((option, index) => {
+          // 鼠标移动时计算相对位置，产生镜头跟随倾斜与位移
+          option.addEventListener('mousemove', (e) => {
+            if (option.classList.contains('flipping-left') || option.classList.contains('flipping-right')) return;
+            const rect = option.getBoundingClientRect();
+            const mx = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+            const my = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+            option.style.transform = `translate(${mx * 12}px, ${my * 12}px) rotate(0deg) rotateX(${-my * 8}deg) rotateY(${mx * 8}deg) scale(1.04)`;
+          });
+
+          // 鼠标移出后复位
+          option.addEventListener('mouseleave', () => {
+            option.style.transform = '';
+          });
+
+          option.addEventListener('click', () => {
+            const detailId = option.dataset.detail;
+            // 01/02/03/04 跳转独立详情页
+            const detailPages = {
+              'project-game': 'pages/project-game.html',
+              'project-cultural': 'pages/project-cultural.html',
+              'project-brand': 'pages/project-brand.html',
+              'project-book': 'pages/project-book.html'
+            };
+            if (detailPages[detailId]) {
+              window.location.href = detailPages[detailId];
+              return;
+            }
+
+            if (isFlipping) return;
+            const detail = detailId ? document.getElementById(detailId) : null;
+            if (!detail) return;
+
+            isFlipping = true;
+            currentDetailId = detailId;
+            option.style.transform = '';
+
+            // 奇数项向左翻，偶数项向右翻
+            const flipClass = (index % 2 === 0) ? 'flipping-left' : 'flipping-right';
+            option.classList.add(flipClass);
+
+            // 翻页动画中途打开详情页（翻页弹出）
+            setTimeout(() => {
+              openProjectDetail(detail);
+            }, 320);
+
+            // 动画结束后清理
+            setTimeout(() => {
+              option.classList.remove(flipClass);
+              isFlipping = false;
+            }, 620);
+          });
+        });
+
+        // 点击打开的目录本跳转对应详情页（若点击的是刚拖拽过的掉落图片则不跳转）
+        openBook.addEventListener('click', (e) => {
+          if (e.target.classList.contains('open-book-img') && e.target.dataset.dragged === 'true') {
+            e.target.dataset.dragged = 'false';
+            return;
+          }
+          const detail = currentDetailId ? document.getElementById(currentDetailId) : null;
+          if (detail) openProjectDetail(detail);
+        });
+
+        // 掉落图片可拖拽
+        initOpenBookDragImages();
+      }
+
+      // 打开的目录本内掉落图片拖拽
+      function initOpenBookDragImages() {
+        const container = $('#projectOpenBook');
+        if (!container) return;
+        const images = $$('.open-book-img', container);
+        if (!images.length) return;
+
+        let maxZ = 10;
+
+        images.forEach((img) => {
+          let currentTx = parseFloat(img.dataset.tx || 0);
+          let currentTy = parseFloat(img.dataset.ty || 0);
+          let isDragging = false;
+          let hasMoved = false;
+          const rotate = img.dataset.rotate || '0deg';
+
+          function onPointerDown(e) {
+            e.preventDefault();
+
+            // 当前图片置顶
+            maxZ += 1;
+            img.style.zIndex = maxZ;
+
+            isDragging = true;
+            hasMoved = false;
+            const startX = e.clientX;
+            const startY = e.clientY;
+            const startTx = currentTx;
+            const startTy = currentTy;
+
+            function onPointerMove(ev) {
+              if (!isDragging) return;
+              const dx = ev.clientX - startX;
+              const dy = ev.clientY - startY;
+              if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasMoved = true;
+              currentTx = startTx + dx;
+              currentTy = startTy + dy;
+              img.style.transform = 'translate(' + currentTx + 'px, ' + currentTy + 'px) rotate(' + rotate + ')';
+              img.dataset.tx = currentTx;
+              img.dataset.ty = currentTy;
+            }
+
+            function onPointerUp() {
+              isDragging = false;
+              window.removeEventListener('pointermove', onPointerMove);
+              window.removeEventListener('pointerup', onPointerUp);
+              if (hasMoved) img.dataset.dragged = 'true';
+            }
+
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+            img.setPointerCapture(e.pointerId);
+          }
+
+          img.addEventListener('pointerdown', onPointerDown);
+        });
+      }
+
+      /* ===== 4.5 打开的目录：三个掉落元素可拖拽 ===== */
+      function initPortfolioOpenDrag() {
+        const section = $('#portfolioOpen');
+        if (!section) return;
+        const items = $$('.folder-item', section);
+        if (!items.length) return;
+
+        let maxZ = 10;
+        const sectionW = 1920;
+        const sectionH = 1080;
+
+        items.forEach((item) => {
+          let currentTx = parseFloat(item.dataset.tx || 0);
+          let currentTy = parseFloat(item.dataset.ty || 0);
+
+          function onPointerDown(e) {
+            e.preventDefault();
+
+            // 当前元素置顶
+            maxZ += 1;
+            item.style.zIndex = maxZ;
+
+            const startX = e.clientX;
+            const startY = e.clientY;
+            const startTx = currentTx;
+            const startTy = currentTy;
+
+            const rotate = item.style.getPropertyValue('--folder-rotate') || '0deg';
+            const baseLeft = parseFloat(getComputedStyle(item).left || 0);
+            const baseTop = parseFloat(getComputedStyle(item).top || 0);
+            const w = item.offsetWidth;
+            const h = item.offsetHeight;
+
+            function onPointerMove(ev) {
+              const dx = ev.clientX - startX;
+              const dy = ev.clientY - startY;
+              let tx = startTx + dx;
+              let ty = startTy + dy;
+
+              // 限制在 1920×1080 画布内
+              tx = Math.max(-baseLeft, Math.min(sectionW - baseLeft - w, tx));
+              ty = Math.max(-baseTop, Math.min(sectionH - baseTop - h, ty));
+
+              currentTx = tx;
+              currentTy = ty;
+              item.dataset.tx = tx.toFixed(2);
+              item.dataset.ty = ty.toFixed(2);
+              item.style.transform = `translate(${tx}px, ${ty}px) rotate(${rotate})`;
+            }
+
+            function onPointerUp() {
+              window.removeEventListener('pointermove', onPointerMove);
+              window.removeEventListener('pointerup', onPointerUp);
+            }
+
+            window.addEventListener('pointermove', onPointerMove);
+            window.addEventListener('pointerup', onPointerUp);
+            item.setPointerCapture(e.pointerId);
+          }
+
+          item.addEventListener('pointerdown', onPointerDown);
+        });
+      }
+
+      /* ===== 4.6 打开的目录：打字机文字效果 ===== */
+      function initPortfolioTypewriter() {
+        const section = $('#portfolioOpen');
+        if (!section) return;
+        const textEl = section.querySelector('.typewriter-text');
+        const cursorEl = section.querySelector('.typewriter-cursor');
+        if (!textEl) return;
+
+        const fullText = '本作品收录个人全链路设计实践作品，涵盖品牌视觉、界面设计、插画创作与概念企划。\n从前期灵感构思、方案推演到落地视觉呈现，完整记录每一次创作思考与审美取舍。\n以设计为媒介，平衡创意表达与实际落地，持续探索视觉更多可能性。';
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              observer.disconnect();
+              typeWriterText(textEl, cursorEl, fullText, 42);
+            }
+          });
+        }, { threshold: 0.05 });
+
+        observer.observe(section);
+      }
+
+      function typeWriterText(el, cursor, text, speed) {
+        let i = 0;
+        el.textContent = '';
+        if (cursor) cursor.style.animation = 'none';
+
+        function typeChar() {
+          if (i < text.length) {
+            el.textContent += text.charAt(i);
+            i += 1;
+            setTimeout(typeChar, speed);
+          } else if (cursor) {
+            cursor.style.animation = '';
+          }
+        }
+
+        typeChar();
+      }
+
+      function openProjectDetail(detail) {
+        // 关闭其他详情页
+        $$('.project-detail').forEach((d) => {
+          d.classList.remove('active', 'flip-pop');
+          d.style.transition = '';
+        });
+        // 临时禁用 transition，避免与翻页弹出关键帧冲突
+        detail.style.transition = 'none';
+        detail.classList.add('active', 'flip-pop');
+        // 翻页弹出动画结束后清理动画类，恢复 transition 以便关闭时过渡
+        setTimeout(() => {
+          detail.classList.remove('flip-pop');
+          detail.style.transition = '';
+        }, 660);
+        // 滚动到页面顶部，模拟全屏独立页面
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // 隐藏全局导航栏与留言按钮，避免与详情页顶部栏重叠
+        const nav = $('#navBar');
+        const msgWrap = document.querySelector('.message-btn-wrap');
+        if (nav) {
+          nav.style.transition = 'opacity 0.3s ease';
+          nav.style.opacity = '0';
+          nav.style.pointerEvents = 'none';
+        }
+        if (msgWrap) {
+          msgWrap.style.transition = 'opacity 0.3s ease';
+          msgWrap.style.opacity = '0';
+          msgWrap.style.pointerEvents = 'none';
+        }
+      }
+
+      function closeAllProjectDetails() {
+        $$('.project-detail').forEach((d) => d.classList.remove('active', 'flip-pop'));
+        const grid = $('#folderGrid');
+        if (grid) grid.classList.remove('has-open');
+        $$('.folder').forEach((f) => f.classList.remove('open'));
+        // 返回作品集时重置为目录首帧
+        const catalog = $('#projectCatalog');
+        const openBook = $('#projectOpenBook');
+        if (catalog) catalog.classList.remove('hidden');
+        if (openBook) openBook.classList.remove('active');
+        // 清除目录选项翻页状态，确保返回后可见
+        $$('.catalog-option').forEach((opt) => opt.classList.remove('flipping-left', 'flipping-right'));
+        // 重置掉落图片位置与拖拽状态
+        $$('.open-book-img').forEach((img) => {
+          img.dataset.tx = '0';
+          img.dataset.ty = '0';
+          img.dataset.dragged = 'false';
+          img.style.transform = '';
+          img.style.zIndex = '';
+        });
+        // 恢复全局导航栏与留言按钮
+        const nav = $('#navBar');
+        const msgWrap = document.querySelector('.message-btn-wrap');
+        if (nav) {
+          nav.style.opacity = '1';
+          nav.style.pointerEvents = 'auto';
+        }
+        if (msgWrap) {
+          msgWrap.style.opacity = '1';
+          msgWrap.style.pointerEvents = 'auto';
+        }
+      }
+
+      // 详情页返回按钮
+      function initDetailBack() {
+        $$('[data-back]').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            closeAllProjectDetails();
+            const project = $('#project');
+            if (project) project.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        });
+      }
+
+      /* ===== 4.5 Garden 灵感库：添加按钮 + 弹窗 + 新增卡片 ===== */
+      function initGarden() {
+        const addBtn = $('#gardenAddBtn');
+        const overlay = $('#gardenModalOverlay');
+        const submitBtn = $('#gardenSubmitBtn');
+        const fileInput = $('#gardenFileInput');
+        const preview = $('#gardenPreview');
+        const previewImg = $('#gardenPreviewImg');
+        const placeholder = preview ? preview.querySelector('.preview-placeholder') : null;
+        const textInput = $('#gardenNoteText');
+        const dateInput = $('#gardenNoteDate');
+        const waterfall = $('.garden-waterfall');
+
+        if (!addBtn || !overlay) return;
+
+        let isCollapsed = false;
+        let uploadedImageData = '';
+
+        // 展开 / 收起标签
+        function toggleCollapse(e) {
+          if (e) e.stopPropagation();
+          isCollapsed = !isCollapsed;
+          addBtn.classList.toggle('collapsed', isCollapsed);
+        }
+
+        // 打开弹窗
+        function openModal() {
+          overlay.classList.add('active');
+          addBtn.classList.add('modal-open');
+          document.body.style.overflow = 'hidden';
+          if (dateInput) {
+            const now = new Date();
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            dateInput.value = `${y}/${m}/${d}`;
+          }
+        }
+
+        // 关闭弹窗并清空
+        function closeModal() {
+          overlay.classList.remove('active');
+          addBtn.classList.remove('modal-open');
+          document.body.style.overflow = '';
+          if (textInput) textInput.value = '';
+          if (dateInput) dateInput.value = '';
+          if (fileInput) fileInput.value = '';
+          uploadedImageData = '';
+          if (previewImg) previewImg.style.display = 'none';
+          if (previewImg) previewImg.src = '';
+          if (placeholder) placeholder.style.display = 'block';
+        }
+
+        // 小箭头点击：仅收起 / 展开
+        const toggle = addBtn.querySelector('.btn-toggle');
+        if (toggle) {
+          toggle.addEventListener('click', toggleCollapse);
+        }
+
+        // 点击按钮主体打开弹窗
+        addBtn.addEventListener('click', (e) => {
+          if (e.target.closest('.btn-toggle')) return;
+          openModal();
+        });
+
+        // 仅在 Garden 区块进入视口时显示添加按钮，离开则隐藏
+        const gardenSection = $('#garden');
+        function syncAddBtnVisibility() {
+          if (!gardenSection) return;
+          const rect = gardenSection.getBoundingClientRect();
+          const visible = rect.top < window.innerHeight && rect.bottom > 0;
+          addBtn.classList.toggle('hidden', !visible);
+        }
+        if (gardenSection && typeof IntersectionObserver !== 'undefined') {
+          const btnObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              addBtn.classList.toggle('hidden', !entry.isIntersecting);
+            });
+          }, { threshold: 0.05 });
+          btnObserver.observe(gardenSection);
+        }
+        // 兼容/兜底：滚动时同步一次状态
+        window.addEventListener('scroll', syncAddBtnVisibility, { passive: true });
+        syncAddBtnVisibility();
+
+        // 修复：body 带 perspective 时 fixed 元素会相对于 body 定位，
+        // 导致按钮沉到页面底部、弹窗无法居中；通过 CSS 变量实时补偿 scrollY
+        function syncGardenFixedPosition() {
+          const bodyStyle = window.getComputedStyle(document.body);
+          const hasPerspective = bodyStyle.perspective && bodyStyle.perspective !== 'none';
+          if (hasPerspective) {
+            document.body.style.setProperty('--garden-scroll-y', window.scrollY + 'px');
+            addBtn.classList.add('perspective-fix');
+            overlay.classList.add('perspective-fix');
+            addBtn.style.setProperty('--garden-btn-height', addBtn.offsetHeight + 'px');
+          } else {
+            document.body.style.removeProperty('--garden-scroll-y');
+            addBtn.classList.remove('perspective-fix');
+            overlay.classList.remove('perspective-fix');
+            addBtn.style.removeProperty('--garden-btn-height');
+          }
+        }
+        window.addEventListener('scroll', syncGardenFixedPosition, { passive: true });
+        window.addEventListener('resize', syncGardenFixedPosition, { passive: true });
+        syncGardenFixedPosition();
+
+        // 关闭弹窗
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) closeModal();
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closeModal();
+          }
+        });
+
+        // 图片上传预览
+        if (fileInput && preview && previewImg) {
+          fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+              uploadedImageData = ev.target.result;
+              previewImg.src = uploadedImageData;
+              previewImg.style.display = 'block';
+              if (placeholder) placeholder.style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+
+        // 提交添加：将新卡片插入最短的瀑布流列
+        submitBtn && submitBtn.addEventListener('click', () => {
+          if (!waterfall) return;
+          const liveText = document.getElementById('gardenNoteText');
+          const liveDate = document.getElementById('gardenNoteDate');
+          const text = liveText ? liveText.value.trim() : '';
+          const date = liveDate ? liveDate.value.trim() : '';
+          const imgSrc = uploadedImageData || 'assets/images/mr2g07ji-biexg6b.png';
+
+          if (!text && !uploadedImageData) {
+            closeModal();
+            return;
+          }
+
+          const card = document.createElement('div');
+          card.className = 'note-card';
+          card.style.setProperty('--delay', '0s');
+          card.innerHTML = `
+            <div class="note-thumb"><img src="${imgSrc}" alt=""/></div>
+            <div class="note-text">${escapeHtml(text || '我为什么要记录这个灵感，是不是觉得这个好看，我有什么原因，在什么地方记录的这个灵感，可以做出什么样子')}</div>
+            <div class="note-meta">${escapeHtml(date || '2027/02/02')}</div>
+          `;
+          appendCardToColumn(card, getShortestColumn());
+
+          // 强制立即触发动画（仅在尚未循环时）
+          requestAnimationFrame(() => {
+            card.style.animation = 'none';
+            void card.offsetWidth;
+            card.style.animation = '';
+          });
+
+          closeModal();
+        });
+
+        // 找到当前卡片最少的列（已循环时只统计原始半份）
+        function getShortestColumn() {
+          const cols = $$('.garden-waterfall-col', waterfall);
+          let shortest = cols[0];
+          let shortestCount = Infinity;
+          cols.forEach((col) => {
+            const track = col.querySelector('.garden-waterfall-scroll');
+            const count = track ? Math.floor(track.children.length / 2) : col.children.length;
+            if (count < shortestCount) {
+              shortest = col;
+              shortestCount = count;
+            }
+          });
+          return shortest;
+        }
+
+        // 把新卡片加入列：未循环直接追加；已循环则同时补入两份轨道，保持无缝
+        function appendCardToColumn(card, col) {
+          if (!col) return;
+          const track = col.querySelector('.garden-waterfall-scroll');
+          if (!track) {
+            col.appendChild(card);
+            return;
+          }
+          const half = Math.floor(track.children.length / 2);
+          const clone = card.cloneNode(true);
+          track.insertBefore(card, track.children[half]);
+          track.appendChild(clone);
+
+          const originalHeight = track.scrollHeight / 2;
+          const duration = Math.max(originalHeight / 45, 12);
+          track.style.setProperty('--scroll-duration', duration + 's');
+        }
+
+        // 瀑布流自动循环：等 Garden 入场动画结束后，复制每列内容并纵向滚动
+        function startWaterfallCycle() {
+          const cols = $$('.garden-waterfall-col', waterfall);
+          if (!cols.length || cols[0].querySelector('.garden-waterfall-scroll')) return;
+
+          cols.forEach((col) => {
+            const track = document.createElement('div');
+            track.className = 'garden-waterfall-scroll';
+            track.innerHTML = col.innerHTML + col.innerHTML;
+            col.innerHTML = '';
+            col.appendChild(track);
+
+            const originalHeight = track.scrollHeight / 2;
+            const duration = Math.max(originalHeight / 45, 12);
+            track.style.setProperty('--scroll-duration', duration + 's');
+          });
+        }
+
+        if (gardenSection) {
+          if (gardenSection.classList.contains('in-view')) {
+            setTimeout(startWaterfallCycle, 1200);
+          } else {
+            const cycleObserver = new MutationObserver((mutations) => {
+              mutations.forEach((m) => {
+                if (
+                  m.type === 'attributes' &&
+                  m.attributeName === 'class' &&
+                  gardenSection.classList.contains('in-view')
+                ) {
+                  cycleObserver.disconnect();
+                  setTimeout(startWaterfallCycle, 1200);
+                }
+              });
+            });
+            cycleObserver.observe(gardenSection, { attributes: true });
+          }
+        }
+      }
+
+      function escapeHtml(str) {
+        return str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      /* ===== 5. Contact 三纸条轮播 ===== */
+      function initContactCarousel() {
+        const carousel = $('#contactCarousel');
+        const dots = $$('#contactDots .contact-dot');
+        if (!carousel) return;
+
+        const cards = $$('.contact-card', carousel);
+        if (cards.length < 2) return;
+
+        let activeIndex = 0;
+
+        function updateCarousel(newIndex) {
+          const n = cards.length;
+          activeIndex = ((newIndex % n) + n) % n;
+
+          cards.forEach((card, i) => {
+            card.classList.remove('active', 'left', 'right');
+            if (i === activeIndex) {
+              card.classList.add('active');
+            } else if (i === (activeIndex - 1 + n) % n) {
+              card.classList.add('left');
+            } else if (i === (activeIndex + 1) % n) {
+              card.classList.add('right');
+            }
+          });
+
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === activeIndex);
+          });
+        }
+
+        cards.forEach((card, i) => {
+          card.addEventListener('click', () => {
+            if (i !== activeIndex) updateCarousel(i);
+          });
+        });
+
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => updateCarousel(i));
+        });
+
+        updateCarousel(activeIndex);
+      }
+
+      /* ===== 5.5 Contact 纸条点击回弹 ===== */
+      function initContactNotes() {
+        $$('.contact-note-item').forEach((note) => {
+          note.addEventListener('click', () => {
+            note.classList.remove('bouncing');
+            void note.offsetWidth;
+            note.classList.add('bouncing');
+            setTimeout(() => note.classList.remove('bouncing'), 400);
+          });
+        });
+      }
+
+      /* ===== 5.6 Contact 便利贴文字编辑与本地存储 ===== */
+      function initContactNoteEdit() {
+        const noteText = $('#contactNoteText');
+        if (!noteText) return;
+
+        const STORAGE_KEY = 'portfolio_contact_note';
+
+        // 加载已保存的留言
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved !== null) {
+          noteText.textContent = saved;
+        }
+
+        // 阻止点击 editable 区域触发轮播切换
+        noteText.addEventListener('click', (e) => e.stopPropagation());
+        noteText.addEventListener('mousedown', (e) => e.stopPropagation());
+
+        // Enter 保存，禁止换行
+        noteText.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const text = noteText.textContent.trim();
+            localStorage.setItem(STORAGE_KEY, text);
+            noteText.blur();
+          }
+        });
+
+        // 失焦时同样保存
+        noteText.addEventListener('blur', () => {
+          const text = noteText.textContent.trim();
+          localStorage.setItem(STORAGE_KEY, text);
+        });
+      }
+
+      /* ===== 6. 留言弹窗逻辑 ===== */
+      function initMessagePopup() {
+        const btn = $('#messageBtn');
+        const overlay = $('#popupOverlay');
+        const close = $('#popupClose');
+        if (!btn || !overlay) return;
+
+        function openPopup() {
+          // 修正 body perspective 导致的 fixed 定位偏移，使弹窗居中于当前视口
+          overlay.style.setProperty('--popup-scroll-y', window.scrollY + 'px');
+          overlay.classList.add('active');
+          document.body.style.overflow = 'hidden'; // 防止背景滚动
+        }
+
+        function closePopup() {
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        btn.addEventListener('click', openPopup);
+        close && close.addEventListener('click', closePopup);
+
+        // 点击遮罩关闭
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) closePopup();
+        });
+
+        // ESC 关闭
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            closePopup();
+          }
+        });
+      }
+
+      /* ===== 6.5 Ending 结尾：星光自然飘落 ===== */
+      function initEndingStars() {
+        const container = $('#endingStars');
+        if (!container) return;
+
+        const STAR_COUNT = 48;
+        const SECTION_H = 1080;
+        const TOP_WIDTH = 1600; // 倒三角形顶部宽度
+        const BOTTOM_WIDTH = 120; // 倒三角形底部宽度
+
+        function triangleX(y) {
+          // y 从 -100 到 SECTION_H+100，计算该高度处倒三角形的半宽
+          const progress = (y + 100) / (SECTION_H + 200);
+          const halfW = (TOP_WIDTH * (1 - progress) + BOTTOM_WIDTH * progress) / 2;
+          return halfW;
+        }
+
+        const fragment = document.createDocumentFragment();
+
+        for (let i = 0; i < STAR_COUNT; i += 1) {
+          const star = document.createElement('div');
+          star.className = 'ending-star';
+
+          const size = Math.floor(Math.random() * 30) + 1; // 1~30px
+          const startY = -80 + Math.random() * 60; // 初始分布在顶部 -80~-20px，形成连续掉落
+          const halfW = triangleX(startY);
+          const startX = (Math.random() * 2 - 1) * halfW;
+          const endX = startX * (0.15 + Math.random() * 0.25); // 向中心收敛
+          const duration = 4 + Math.random() * 5; // 4~9s
+          const delay = Math.random() * 6;
+          const rotate = Math.floor(Math.random() * 360);
+
+          star.style.setProperty('--size', size + 'px');
+          star.style.setProperty('--start-x', startX.toFixed(2) + 'px');
+          star.style.setProperty('--start-y', startY.toFixed(2) + 'px');
+          star.style.setProperty('--end-x', endX.toFixed(2) + 'px');
+          star.style.setProperty('--duration', duration.toFixed(2) + 's');
+          star.style.setProperty('--delay', delay.toFixed(2) + 's');
+          star.style.setProperty('--rotate', rotate + 'deg');
+
+          const img = document.createElement('img');
+          img.src = 'assets/images/screenshot_272_472.png';
+          img.alt = '星光';
+          img.draggable = false;
+          star.appendChild(img);
+
+          fragment.appendChild(star);
+        }
+
+        container.appendChild(fragment);
+      }
+
+      /* ===== 7. 初始化 ===== */
+      document.addEventListener('DOMContentLoaded', () => {
+        initNav();
+        initPetalFall();
+        initHomeNavigation();
+        initScrollAnimations();
+        initAboutNotesDrag();
+        initFolderFlip();
+        initPortfolioOpenDrag();
+        initPortfolioTypewriter();
+        initDetailBack();
+        initGarden();
+        initContactCarousel();
+        initContactNotes();
+        initContactNoteEdit();
+        initMessagePopup();
+        initEndingStars();
+      });
+    })();
+  -->
+</body>
+</html>
