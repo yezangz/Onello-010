@@ -7,11 +7,11 @@
 ```
 Onello-010/
 ├── index.html              # 作品集主页
-├── pages/                  # 作品详情页
-│   ├── project-game.html       # 01 游戏界面设计
-│   ├── project-cultural.html   # 02 文创设计
-│   ├── project-brand.html      # 03 品牌设计
-│   └── project-book.html       # 04 书籍设计
+├── works/                  # 作品详情页
+│   ├── game-detail.html        # 01 游戏界面设计
+│   ├── craft-detail.html       # 02 文创设计
+│   ├── brand-detail.html       # 03 品牌设计
+│   └── book-detail.html        # 04 书籍设计
 ├── css/                    # 样式文件
 │   └── main.css                # 主页样式
 ├── js/                     # 脚本文件
@@ -59,7 +59,7 @@ npm run dev
 
 ## 更新图片
 
-如需替换作品详情页图片，将新图片放入 `assets/images/`，并修改对应 `pages/project-*.html` 中的 `<img src="...">` 路径即可。
+如需替换作品详情页图片，将新图片放入 `assets/images/`，并修改对应 `works/*-detail.html` 中的 `<img src="...">` 路径即可。
 
 ## 注意事项
 

@@ -287,35 +287,22 @@
             option.style.transform = '';
           });
 
-          option.addEventListener('click', () => {
-            const detailId = option.dataset.detail;
-            // 01/02/03/04 跳转独立详情页
-            const detailPages = {
-              'project-game': 'pages/project-game.html',
-              'project-cultural': 'pages/project-cultural.html',
-              'project-brand': 'pages/project-brand.html',
-              'project-book': 'pages/project-book.html'
-            };
-            if (detailPages[detailId]) {
-              window.location.href = detailPages[detailId];
-              return;
-            }
-
-            if (isFlipping) return;
-            const detail = detailId ? document.getElementById(detailId) : null;
-            if (!detail) return;
+          option.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const pageId = option.dataset.page;
+            if (!pageId || isFlipping) return;
 
             isFlipping = true;
-            currentDetailId = detailId;
+            currentDetailId = pageId;
             option.style.transform = '';
 
             // 奇数项向左翻，偶数项向右翻
             const flipClass = (index % 2 === 0) ? 'flipping-left' : 'flipping-right';
             option.classList.add(flipClass);
 
-            // 翻页动画中途打开详情页（翻页弹出）
+            // 翻页动画中途跳转到独立详情页
             setTimeout(() => {
-              openProjectDetail(detail);
+              window.location.href = pageId;
             }, 320);
 
             // 动画结束后清理
@@ -332,8 +319,7 @@
             e.target.dataset.dragged = 'false';
             return;
           }
-          const detail = currentDetailId ? document.getElementById(currentDetailId) : null;
-          if (detail) openProjectDetail(detail);
+          if (currentDetailId) window.location.href = currentDetailId;
         });
 
         // 掉落图片可拖拽
@@ -502,22 +488,24 @@
         typeChar();
       }
 
-      function openProjectDetail(detail) {
-        // 关闭其他详情页
-        $$('.project-detail').forEach((d) => {
-          d.classList.remove('active', 'flip-pop');
-          d.style.transition = '';
-        });
-        // 临时禁用 transition，避免与翻页弹出关键帧冲突
-        detail.style.transition = 'none';
-        detail.classList.add('active', 'flip-pop');
-        // 翻页弹出动画结束后清理动画类，恢复 transition 以便关闭时过渡
+      function navigateTo(pageId) {
+        const home = document.querySelector('#home');
+        const target = document.querySelector(`#${pageId}`);
+        if (!target) return;
+
+        // 先淡出首页
+        if (home) {
+          home.classList.remove('active');
+          home.classList.add('hidden');
+        }
+
         setTimeout(() => {
-          detail.classList.remove('flip-pop');
-          detail.style.transition = '';
-        }, 660);
-        // 滚动到页面顶部，模拟全屏独立页面
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+          target.classList.remove('hidden');
+          target.classList.add('active');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          history.pushState(null, '', `/${pageId}`);
+        }, 400);
+
         // 隐藏全局导航栏与留言按钮，避免与详情页顶部栏重叠
         const nav = $('#navBar');
         const msgWrap = document.querySelector('.message-btn-wrap');
@@ -533,8 +521,43 @@
         }
       }
 
+      function goHome() {
+        const currentPage = document.querySelector('.page.active');
+        const homePage = document.querySelector('#home');
+        if (!currentPage) return;
+
+        // 先淡出当前页
+        currentPage.classList.remove('active');
+        currentPage.classList.add('hidden');
+
+        setTimeout(() => {
+          // 显示首页
+          if (homePage) {
+            homePage.classList.remove('hidden');
+            homePage.classList.add('active');
+          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          history.pushState(null, '', '/');
+        }, 400);
+
+        // 恢复全局导航栏与留言按钮
+        const nav = $('#navBar');
+        const msgWrap = document.querySelector('.message-btn-wrap');
+        if (nav) {
+          nav.style.opacity = '1';
+          nav.style.pointerEvents = 'auto';
+        }
+        if (msgWrap) {
+          msgWrap.style.opacity = '1';
+          msgWrap.style.pointerEvents = 'auto';
+        }
+      }
+
       function closeAllProjectDetails() {
-        $$('.project-detail').forEach((d) => d.classList.remove('active', 'flip-pop'));
+        $$('.project-detail').forEach((d) => {
+          d.classList.remove('active', 'flip-pop');
+          d.classList.add('hidden');
+        });
         const grid = $('#folderGrid');
         if (grid) grid.classList.remove('has-open');
         $$('.folder').forEach((f) => f.classList.remove('open'));
@@ -553,6 +576,12 @@
           img.style.transform = '';
           img.style.zIndex = '';
         });
+        // 恢复首页显示
+        const homePage = document.querySelector('#home');
+        if (homePage) {
+          homePage.classList.remove('hidden');
+          homePage.classList.add('active');
+        }
         // 恢复全局导航栏与留言按钮
         const nav = $('#navBar');
         const msgWrap = document.querySelector('.message-btn-wrap');
@@ -569,10 +598,9 @@
       // 详情页返回按钮
       function initDetailBack() {
         $$('[data-back]').forEach((btn) => {
-          btn.addEventListener('click', () => {
-            closeAllProjectDetails();
-            const project = $('#project');
-            if (project) project.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goHome();
           });
         });
       }
