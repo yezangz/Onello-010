@@ -500,7 +500,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 0px;
+      gap: 60px;
       transition: opacity 0.5s ease, transform 0.5s ease;
       will-change: transform, opacity;
       transform-origin: 50% 50%;
@@ -539,28 +539,22 @@
       display: block;
     }
 
-    /* 可点击目录选项（透明点击热区，背景图已包含视觉） */
+    /* 可点击目录选项：作品集目录文件夹样式 308x412 */
     .catalog-option {
       position: relative;
-      width: 435px;
-      height: 581px;
+      width: 308px;
+      height: 412px;
       flex-shrink: 0;
       cursor: pointer;
       transform-origin: 50% 50%;
-      transition: transform 0.5s ease, box-shadow 0.35s ease;
+      transition: transform 0.5s ease, filter 0.35s ease;
       will-change: transform, opacity;
       /* 初始状态：从底部 1200px 外滑入 */
       opacity: 0;
-      transform: translateY(1200px) rotate(var(--option-rotate, 0deg));
+      transform: translateY(1200px) rotate(0deg);
       z-index: 1;
-      filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.14));
+      filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.12));
     }
-
-    /* 4 个目录选项的固定旋转角度 */
-    .catalog-option:nth-child(1) { --option-rotate: 9deg; }
-    .catalog-option:nth-child(2) { --option-rotate: -5deg; }
-    .catalog-option:nth-child(3) { --option-rotate: -9deg; }
-    .catalog-option:nth-child(4) { --option-rotate: 7deg; }
 
     /* Project 进入视口：目录选项从底部向上滑入， stagger 延迟 */
     #project.in-view .catalog-option {
