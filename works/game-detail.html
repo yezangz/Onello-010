@@ -66,17 +66,45 @@
       color: #1a1a2e;
     }
 
-    .detail-content {
-      padding: 0;
-      display: block;
-      overflow: visible;
+    /* ===== 游戏界面设计详情页：按 Figma 244_1067 分层布局 ===== */
+    .game-detail-wrap {
+      position: relative;
+      width: 1920px;
+      height: 9720px;
+      overflow: hidden;
+      background: #ffffff;
     }
 
-    .detail-content img {
-      width: 1920px;
-      height: auto;
+    .game-detail-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/images/mrhwdp3y-o5ezc60.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    .game-frame {
+      position: absolute;
+      display: block;
+      z-index: 1;
+    }
+
+    .game-frame img {
+      width: 100%;
+      height: 100%;
       display: block;
     }
+
+    /* 7 个切片按 Figma 导出坐标定位 */
+    .game-frame.frame1 { top: 0; left: 0; width: 1920px; height: 1080px; }
+    .game-frame.frame2 { top: 1266px; left: 189px; width: 1543px; height: 688px; }
+    .game-frame.frame3 { top: 2071px; left: 239px; width: 1443px; height: 815px; }
+    .game-frame.frame4 { top: 3096px; left: 291px; width: 1391px; height: 324px; }
+    .game-frame.frame5 { top: 3629px; left: 165px; width: 1590px; height: 770px; }
+    .game-frame.frame6 { top: 4628px; left: 112px; width: 1697px; height: 3596px; }
+    .game-frame.frame7 { top: 8502px; left: 600px; width: 719px; height: 641px; }
 
     .bottom-back {
       position: fixed;
@@ -122,8 +150,15 @@
       <div class="detail-title">游戏界面设计</div>
       <div style="width:120px;"></div>
     </div>
-    <div class="detail-content">
-      <img src="../assets/images/screenshot_244_1067.png" alt="01详细页" />
+    <div class="game-detail-wrap">
+      <div class="game-detail-bg"></div>
+      <div class="game-frame frame1"><img src="../assets/images/mrhwdp3y-48az3vb.png" alt="游戏界面设计-封面" /></div>
+      <div class="game-frame frame2"><img src="../assets/images/mrhwdp3y-rujq39z.png" alt="游戏界面设计-世界观" /></div>
+      <div class="game-frame frame3"><img src="../assets/images/mrhwdp3y-ckf33ju.png" alt="游戏界面设计-情绪板" /></div>
+      <div class="game-frame frame4"><img src="../assets/images/mrhwdp3y-5quuy3f.png" alt="游戏界面设计-关键词" /></div>
+      <div class="game-frame frame5"><img src="../assets/images/mrhwdp3y-ckrvah5.png" alt="游戏界面设计-颜色与字体" /></div>
+      <div class="game-frame frame6"><img src="../assets/images/mrhwdp3y-5sagafy.png" alt="游戏界面设计-界面展示" /></div>
+      <div class="game-frame frame7"><img src="../assets/images/mrhwdp3y-nrj8hfx.png" alt="游戏界面设计-感谢观看" /></div>
     </div>
   </div>
   <a class="bottom-back" href="../index.html#project">
