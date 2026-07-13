@@ -193,6 +193,39 @@
 
       }
 
+      /* ===== 3.6 懒加载增强：提前 800px 预取 + 淡入效果 ===== */
+      function initLazyEnhance() {
+        if (typeof IntersectionObserver === 'undefined') return;
+
+        const preloaded = new Set();
+
+        $$('img[loading="lazy"]').forEach((img) => {
+          img.style.opacity = '0';
+          img.style.transition = 'opacity 0.35s ease';
+          img.addEventListener('load', () => { img.style.opacity = '1'; });
+          if (img.complete) img.style.opacity = '1';
+        });
+
+        const preloadObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const img = entry.target;
+            const src = img.currentSrc || img.src;
+            if (src && !preloaded.has(src)) {
+              preloaded.add(src);
+              const link = document.createElement('link');
+              link.rel = 'preload';
+              link.as = 'image';
+              link.href = src;
+              document.head.appendChild(link);
+            }
+            preloadObserver.unobserve(img);
+          });
+        }, { rootMargin: '800px 0px' });
+
+        $$('img[loading="lazy"]').forEach((img) => preloadObserver.observe(img));
+      }
+
       /* ===== 3.5 About 纸条：可拖拽 + 点击回弹动画 ===== */
       function initAboutNotesDrag() {
         const section = $('.screen-about');
@@ -1065,6 +1098,7 @@
         initPetalFall();
         initHomeNavigation();
         initScrollAnimations();
+        initLazyEnhance();
         initAboutNotesDrag();
         initFolderFlip();
         initPortfolioOpenDrag();
