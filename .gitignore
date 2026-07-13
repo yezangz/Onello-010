@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+.tools/
 
 # OS
 .DS_Store
