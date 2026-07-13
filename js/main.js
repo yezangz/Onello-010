@@ -773,7 +773,7 @@
           const liveDate = document.getElementById('gardenNoteDate');
           const text = liveText ? liveText.value.trim() : '';
           const date = liveDate ? liveDate.value.trim() : '';
-          const imgSrc = uploadedImageData || 'assets/images/mr2g07ji-biexg6b.webp';
+          const imgSrc = uploadedImageData || 'assets/images/mrj476kn-7qy5idh.webp';
 
           if (!text && !uploadedImageData) {
             closeModal();
