@@ -5,6 +5,8 @@
   <!-- 固定视口宽度，禁止移动端自适应缩放 -->
   <meta name="viewport" content="width=1920" />
   <title>个人作品集 | Portfolio</title>
+  <!-- 预加载首屏关键背景图，提升 Largest Contentful Paint -->
+  <link rel="preload" as="image" href="assets/images/screenshot_244_955.webp" type="image/webp">
   <link rel="stylesheet" href="css/main.css"><!--
     /* =========================================================
        全局重置与硬性布局规则
@@ -2208,7 +2210,7 @@
     <section class="screen-1080" id="home">
       <!-- 背景 -->
       <div class="home-bg-layer">
-        <img src="assets/images/screenshot_244_957.webp" alt="首页背景" loading="eager" decoding="async">
+        <img src="assets/images/screenshot_244_957.webp" alt="首页背景" loading="eager" decoding="async" fetchpriority="high">
       </div>
 
       <!-- 首页图形组合：整体水平居中 -->
